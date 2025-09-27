@@ -20,7 +20,6 @@ export default function Page() {
         <ProjectGrid />
       </PageWrap>
       <FloatingDock
-        mobileClassName="translate-y-20" // only for demo, remove for production
         items={navigationLinks}
       />
     </>

@@ -77,9 +77,9 @@ const FloatingDockMobile = ({
                     <a
                       {...linkProps}
                       key={item.title}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                      className="flex h-12 w-12 items-center justify-center rounded-full bg-cardColor border border-white/10 shadow-lg hover:bg-cardColorForeground transition-colors"
                     >
-                      <div className="h-4 w-4">{item.icon}</div>
+                      <div className="h-5 w-5 text-white">{item.icon}</div>
                     </a>
                   );
                 })()}
@@ -90,9 +90,9 @@ const FloatingDockMobile = ({
       </AnimatePresence>
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-cardColor border border-white/10 shadow-lg hover:bg-cardColorForeground transition-colors"
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+        <IconLayoutNavbarCollapse className="h-6 w-6 text-white" />
       </button>
     </div>
   );
