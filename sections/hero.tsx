@@ -50,9 +50,16 @@ export default function Hero() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 0.7, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.05 }}
-          className="text-sm font-medium text-neutral-400 md:text-sm"
+          className="text-sm font-medium text-neutral-400 md:text-sm group"
         >
-          / <span className="font-mono">{handle}</span>
+          / <Link
+            href="https://x.com/Darshhh1800"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono group-hover:text-brand transition-colors duration-300 hover:underline cursor-pointer"
+          >
+            {handle}
+          </Link>
         </motion.span>
         </h1>
       </div>
