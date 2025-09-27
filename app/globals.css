@@ -1,26 +1,190 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-doto), -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --color-bg: #0d0f10;
+  --color-card: #111416;
+  --color-muted: #9aa0a6;
+  --color-line: #2a2f34;
+  --color-acc1: #b5c9ff; /* subtle cyan/violet mix */
+  --shadow-soft: 0 0 0 1px rgba(255,255,255,.06), 0 20px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+  --color-cardColor: #111416;
+  --color-cardColorForeground: #1a1d21;
+  --color-brand: #b5c9ff;
+  --color-muted-foreground: #9aa0a6;
+  --color-border: #2a2f34;
+  --color-background: #0d0f10;
+  --color-accent: #b5c9ff;
+  --color-muted-light: #9aa0a6;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 14px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* { box-sizing: border-box; }
+
+body { font-family: var(--font-sans); }
+
+.container-hero {
+  /* narrow centered column like the reference */
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+  padding-inline: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* === Dotted gradient text (cross-browser, fixed) === */
+.doto-font {
+  font-family: var(--font-doto),sans-serif;
+}
+
+@media (min-width: 768px) {
+  .dotty {
+    -webkit-mask-size: 0.6em 0.6em;
+            mask-size: 0.6em 0.6em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* === Subtle separators, dotted focus frame & tag chip === */
+
+@keyframes blink-fade {
+  0%, 70% { opacity: 0 }
+  75%, 85% { opacity: 1 }
+  90%, 100% { opacity: 0 }
+}
+
+@keyframes bulb-blink {
+  0%, 5% {
+    opacity: 1;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.6);
+  }
+  6%, 10% {
+    opacity: 0.3;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.2);
+  }
+  11%, 15% {
+    opacity: 1;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.8);
+  }
+  16%, 20% {
+    opacity: 0.2;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.1);
+  }
+  21%, 25% {
+    opacity: 1;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.7);
+  }
+  26%, 30% {
+    opacity: 0.4;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.3);
+  }
+  31%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    border-color: rgba(255,255,255,0.6);
+  }
+}
+
+@keyframes glow-effect {
+  0%, 100% {
+    background-color: rgba(255,255,255,0.05);
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+  }
+  50% {
+    background-color: rgba(255,255,255,0.1);
+    box-shadow: inset 0 0 30px rgba(255,255,255,0.2);
+  }
+}
+
+/* Dotted focus frame that appears on hover */
+.focus-dots {
+  opacity: 0;
+  transition: opacity 0.15s linear;
+  background-color: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.6);
+}
+.group:hover .focus-dots {
+  opacity: 1;
+  animation: bulb-blink 3s linear 1;
+}
+
+/* Hairline divider that fades rightwards */
+.soft-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,.06) 40%, transparent 100%);
+}
+
+/* Tag chip */
+.tag {
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-[11px] leading-none;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.82);
+  backdrop-filter: blur(2px);
+}
+
+.card {
+  background: color-mix(in oklab, var(--color-card) 96%, black 4%);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(6px);
+}
+
+.dot {
+  width: 10px; height: 10px; border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #c0f1ff 0%, #7dd3fc 40%, transparent 70%);
+  box-shadow: 0 0 10px #22d3ee66, 0 0 24px #22d3ee33;
+}
+
+/* External links button styles */
+.bg-cardColor {
+  background-color: var(--color-cardColor);
+}
+
+.bg-cardColorForeground {
+  background-color: var(--color-cardColorForeground);
+}
+
+.text-brand {
+  color: var(--color-brand);
+}
+
+.text-muted-foreground {
+  color: var(--color-muted-foreground);
+}
+
+.bg-border {
+  background-color: var(--color-border);
+}
+
+.bg-background {
+  background-color: var(--color-background);
+}
+
+.bg-brand {
+  background-color: var(--color-brand);
+}
+
+.text-brand {
+  color: var(--color-brand);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.text-muted-light {
+  color: var(--color-muted-light);
+}
+
+.jetbrains-mono {
+  font-family: 'JetBrains Mono', monospace;
 }
