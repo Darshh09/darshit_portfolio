@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="antialiased">
+    <html lang="en" className="antialiased" suppressHydrationWarning>
       <body
         className={`${doto.variable} bg-[#0d0f10] text-[#D9D9D9] selection:bg-cyan-500/30 selection:text-white`}
       >
