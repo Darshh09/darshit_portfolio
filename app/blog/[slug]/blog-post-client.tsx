@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { BlogPost } from '@/lib/blog-data';
 import { PageWrap } from '@/components/containers';
-import { MonoHeader, Muted, SmallLabel } from '@/components/typography';
+import { MonoHeader, Muted } from '@/components/typography';
 import { IconCalendar, IconClock, IconTag, IconArrowLeft } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { ShareButton } from '@/components/ui/share-button';

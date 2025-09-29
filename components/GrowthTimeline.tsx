@@ -78,7 +78,7 @@ export default function GrowthTimeline() {
         <div className="pointer-events-none absolute left-[28px] top-0 h-full w-px bg-white/10" />
 
         <ul className="space-y-6">
-          {items.map((it, idx) => (
+          {items.map((it) => (
             <li key={it.company} className="relative flex gap-4">
               {/* node */}
               <div className="relative z-10 mt-2 h-4 w-4 rounded-full bg-gradient-to-br from-cyan-400 to-fuchsia-400 shadow-[0_0_0_6px_rgba(255,255,255,0.05)]" />

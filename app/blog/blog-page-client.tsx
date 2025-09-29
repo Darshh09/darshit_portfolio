@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { blogPosts, getAllTags, getPostsByTag } from '@/lib/blog-data';
 import { PageWrap } from '@/components/containers';
-import { MonoHeader, Muted, SmallLabel } from '@/components/typography';
+import { Muted, SmallLabel } from '@/components/typography';
 import { motion } from 'framer-motion';
 import { IconCalendar, IconClock, IconTag, IconArrowRight, IconX } from '@tabler/icons-react';
 import { FloatingDock } from '@/components/ui/floating-dock';
@@ -64,7 +64,7 @@ export default function BlogPageClient() {
           <div className="text-muted-light mb-4">
             <IconTag className="w-12 h-12 mx-auto mb-4 opacity-50" />
             <h3 className="text-lg font-medium text-heading mb-2">No posts found</h3>
-            <p>No blog posts found for the tag "{selectedTag}".</p>
+                   <p>No blog posts found for the tag &quot;{selectedTag}&quot;.</p>
           </div>
           <button
             onClick={() => setSelectedTag(null)}

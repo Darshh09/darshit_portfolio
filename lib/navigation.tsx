@@ -1,13 +1,8 @@
 import React from 'react';
 import {
   IconBrandGithub,
-  IconBriefcase,
-  IconCode,
   IconHome,
-  IconPalette,
-  IconPencil,
   IconFileText,
-  IconFlask,
 } from '@tabler/icons-react';
 
 export const navigationLinks = [
