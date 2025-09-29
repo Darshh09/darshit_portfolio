@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     ],
     shortcut: '/dsmainlogo.png',
     apple: [
-     
+
       { url: '/dsmainlogo.png', sizes: '1024x1024', type: 'image/png' },
     ],
   },
