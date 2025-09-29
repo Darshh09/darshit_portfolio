@@ -79,7 +79,7 @@ const items: Item[] = [
 export default function WorkPage() {
   return (
     <PageWrap>
-      <div className="mb-24 pb-32">
+      <div className="mb-20">
         <div className="mb-10">
           <div className="jetbrains-mono flex items-center gap-1.5 mb-2 text-sm tracking-tighter text-muted-light">
             <span>Hey It&apos;s me</span>

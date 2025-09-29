@@ -7,17 +7,21 @@ import { navigationLinks } from '@/lib/navigation';
 import HorizontalTimeline from "@/sections/HorizontalTimeline";
 import ExternalLinks from "@/sections/ExternalLinks";
 import ProjectGrid from "@/sections/ProjectGrid";
+import BlogPreview from "@/sections/blog-preview";
+import Footer from "@/components/footer";
 
 export default function Page() {
 
   return (
     <>
-      <PageWrap>
+      <PageWrap className="pb-40">
         <Hero />
         <Workflow />
         <ExternalLinks />
+        <BlogPreview />
         <HorizontalTimeline />
         <ProjectGrid />
+        <Footer />
       </PageWrap>
       <FloatingDock
         items={navigationLinks}

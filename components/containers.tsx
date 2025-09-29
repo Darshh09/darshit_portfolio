@@ -1,3 +1,3 @@
-export function PageWrap({ children }: { children: React.ReactNode }) {
-  return <main className="container-hero py-16 md:py-20">{children}</main>;
+export function PageWrap({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <main className={`container-hero py-16 md:py-20 ${className || ''}`}>{children}</main>;
 }

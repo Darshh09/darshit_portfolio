@@ -4,7 +4,7 @@ export function SmallLabel({ children }: { children: React.ReactNode }) {
 
 export function MonoHeader({ children }: { children: React.ReactNode }) {
   return (
-    <h1 className="mt-1 font-medium text-[22px] tracking-[0.18em] text-[#dce3ff]">
+    <h1 className="mt-1 font-medium text-[24px] tracking-[0.18em] text-[#dce3ff]">
       {children}
     </h1>
   );

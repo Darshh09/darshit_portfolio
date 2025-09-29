@@ -10,7 +10,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-
+import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 
 export const FloatingDock = ({
@@ -42,6 +42,8 @@ const FloatingDockMobile = ({
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
   return (
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
@@ -50,41 +52,61 @@ const FloatingDockMobile = ({
             layoutId="nav"
             className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
           >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                {(() => {
-                  const isExternal = item.href.startsWith('http') || item.href.endsWith('.pdf');
-                  const linkProps = isExternal
-                    ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' }
-                    : { href: item.href };
+            {items.map((item, idx) => {
+              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+              const isExternal = item.href.startsWith('http') || item.href.endsWith('.pdf');
+              const linkProps = isExternal
+                ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' }
+                : { href: item.href };
 
-                  return (
-                    <a
-                      {...linkProps}
-                      key={item.title}
-                      className="flex h-12 w-12 items-center justify-center rounded-full bg-cardColor border border-white/10 shadow-lg hover:bg-cardColorForeground transition-colors"
-                    >
-                      <div className="h-5 w-5 text-white">{item.icon}</div>
-                    </a>
-                  );
-                })()}
-              </motion.div>
-            ))}
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 10,
+                    transition: {
+                      delay: idx * 0.05,
+                    },
+                  }}
+                  transition={{ delay: (items.length - 1 - idx) * 0.05 }}
+                >
+                  <a {...linkProps}>
+                    <div className={cn(
+                      "flex h-12 w-12 items-center justify-center rounded-full border shadow-lg transition-all duration-300",
+                      isActive
+                        ? "bg-brand/20 border-brand/40 shadow-brand/20"
+                        : "bg-cardColor border-white/10 hover:bg-cardColorForeground"
+                    )}>
+                      <div className="h-5 w-5">
+                        <motion.div
+                          animate={{
+                            color: isActive ? "#b5c9ff" : "#9aa0a6",
+                          }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                        >
+                          {item.icon}
+                        </motion.div>
+                      </div>
+                      {isActive && (
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0, opacity: 0 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute -top-1 -right-1 w-2 h-2 bg-brand rounded-full"
+                        />
+                      )}
+                    </div>
+                  </a>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -111,7 +133,7 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900",
+        "mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-cardColor border border-white/10 px-4 pb-3 md:flex shadow-lg",
         className,
       )}
     >
@@ -134,6 +156,7 @@ function IconContainer({
   href: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -181,6 +204,9 @@ function IconContainer({
     ? { href, target: '_blank', rel: 'noopener noreferrer' }
     : { href };
 
+  // Check if current page is active
+  const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
+
   return (
     <a {...linkProps}>
       <motion.div
@@ -188,7 +214,14 @@ function IconContainer({
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800"
+        className={cn(
+          "relative flex aspect-square items-center justify-center rounded-full",
+          isActive
+            ? "bg-brand/20 border border-brand/40 shadow-lg shadow-brand/20"
+            : hovered
+            ? "bg-brand/10 border border-brand/30 shadow-md shadow-brand/10"
+            : "bg-white/5 border border-white/10"
+        )}
       >
         <AnimatePresence>
           {hovered && (
@@ -196,7 +229,7 @@ function IconContainer({
               initial={{ opacity: 0, y: 10, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="absolute -top-8 left-1/2 w-fit rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white"
+              className="absolute -top-8 left-1/2 w-fit rounded-md border border-white/20 bg-cardColor px-2 py-0.5 text-xs whitespace-pre text-white shadow-lg"
             >
               {title}
             </motion.div>
@@ -206,8 +239,33 @@ function IconContainer({
           style={{ width: widthIcon, height: heightIcon }}
           className="flex items-center justify-center"
         >
-          {icon}
+          <motion.div
+            style={{
+              width: widthIcon,
+              height: heightIcon,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            animate={{
+              color: isActive ? "#b5c9ff" : hovered ? "#b5c9ff" : "#9aa0a6",
+            }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            {icon}
+          </motion.div>
         </motion.div>
+
+        {/* Active indicator dot */}
+        {isActive && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute -top-1 -right-1 w-2 h-2 bg-brand rounded-full"
+          />
+        )}
       </motion.div>
     </a>
   );
