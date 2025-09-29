@@ -2,9 +2,9 @@ export function SmallLabel({ children }: { children: React.ReactNode }) {
   return <span className="text-[11px] tracking-widest text-white/40">{children}</span>;
 }
 
-export function MonoHeader({ children }: { children: React.ReactNode }) {
+export function MonoHeader({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <h1 className="mt-1 font-medium text-[24px] tracking-[0.18em] text-[#dce3ff]">
+    <h1 className={`mt-1 font-medium text-[24px] tracking-[0.18em] text-[#dce3ff] ${className || ''}`}>
       {children}
     </h1>
   );
