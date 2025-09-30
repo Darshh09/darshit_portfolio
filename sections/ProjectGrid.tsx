@@ -7,7 +7,7 @@ import { IconStar } from '@tabler/icons-react';
 
 export default function ProjectGrid() {
   return (
-    <section className="mx-auto w-full max-w-5xl  pb-24">
+    <section className="mx-auto w-full max-w-5xl  pb-12">
       <header className="mb-6 mt-2">
         <h2 className="text-[22px] font-bold tracking-tight text-white">
           Featured Work
