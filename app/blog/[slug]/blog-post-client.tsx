@@ -79,7 +79,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
 
           {updatedDate && (
             <div className="text-xs">
-              Updated {updatedDate.toLocaleDateString()}
+              Updated {updatedDate.toLocaleDateString('en-US')}
             </div>
           )}
         </div>

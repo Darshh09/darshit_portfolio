@@ -73,6 +73,7 @@ const LINES = POS.slice(0, -1).map((p, i) => ({
 
 export default function AnimatedWorkflow() {
   const controls = useAnimation();
+  const [isMounted, setIsMounted] = useState(false);
 
   const [active, setActive] = useState(0); // active step index
   const [blink, setBlink] = useState<Blink>("yellow");
@@ -91,14 +92,23 @@ export default function AnimatedWorkflow() {
     return { cx: p.x + BOX.w / 2, cy: p.y + BOX.h / 2 };
   }, [active]);
 
+  // Set mounted state
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Jump cursor to first step on mount
   useEffect(() => {
-    controls.set({ x: cursorTarget.cx - 16, y: cursorTarget.cy - 16, opacity: 1 });
+    if (isMounted) {
+      controls.set({ x: cursorTarget.cx - 16, y: cursorTarget.cy - 16, opacity: 1 });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isMounted]);
 
   // Step lifecycle
   useEffect(() => {
+    if (!isMounted) return;
+
     let t1: any, t2: any, t3: any, raf: number;
 
     // Start processing (yellow)
@@ -149,18 +159,20 @@ export default function AnimatedWorkflow() {
         // Move cursor
         const next = POS[active + 1];
         setPhase("moving");
-        controls
-          .start({
-            x: next.x + BOX.w / 2 - 16,
-            y: next.y + BOX.h / 2 - 16,
-            transition: { duration: moveDuration / 1000, ease: "linear" },
-          })
-          .then(() => {
-            cancelAnimationFrame(raf);
-            setActive((a) => a + 1);
-            setPhase("processing");
-            setBlink("yellow");
-          });
+        if (isMounted) {
+          controls
+            .start({
+              x: next.x + BOX.w / 2 - 16,
+              y: next.y + BOX.h / 2 - 16,
+              transition: { duration: moveDuration / 1000, ease: "linear" },
+            })
+            .then(() => {
+              cancelAnimationFrame(raf);
+              setActive((a) => a + 1);
+              setPhase("processing");
+              setBlink("yellow");
+            });
+        }
       }, greenFlash);
     }, processingDuration);
 

@@ -18,9 +18,9 @@ export default function Page() {
         <Hero />
         <Workflow />
         <ExternalLinks />
-        <BlogPreview />
         <HorizontalTimeline />
         <ProjectGrid />
+        <BlogPreview />
         <Footer />
       </PageWrap>
       <FloatingDock
