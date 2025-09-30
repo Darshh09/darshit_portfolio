@@ -21,7 +21,7 @@ export default function BlogPageClient() {
 
   return (
     <>
-      <PageWrap>
+      <PageWrap className="pb-40">
         {/* Header */}
         <div className="mb-20">
         <section className="mb-8">
