@@ -43,7 +43,14 @@ export default function BlogPreview() {
             className="group"
           >
             <Link href={`/blog/${post.slug}`} className="block">
-              <div className="card p-6 hover:bg-white/[0.02] transition-all duration-300 group-hover:border-white/20 h-full">
+              <div className="group relative block rounded-2xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.02] transition-all duration-300 group-hover:border-white/20 h-full">
+                {/* dotted focus frame with corner brackets */}
+                <div className="pointer-events-none absolute inset-0 z-10 -m-px border border-dashed border-white/15 bg-muted/15 focus-dots opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute -left-px -top-px h-2 w-2 border-l border-t border-white/90"></div>
+                  <div className="absolute -right-px -top-px h-2 w-2 border-r border-t border-white/90"></div>
+                  <div className="absolute -bottom-px -right-px h-2 w-2 border-b border-r border-white/90"></div>
+                  <div className="absolute -bottom-px -left-px h-2 w-2 border-b border-l border-white/90"></div>
+                </div>
                 <div className="mb-4">
                   <h3 className="text-lg font-medium text-heading mb-2 group-hover:text-brand transition-colors line-clamp-2">
                     {post.title}
