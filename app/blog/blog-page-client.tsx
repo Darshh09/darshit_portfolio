@@ -94,7 +94,14 @@ export default function BlogPageClient() {
                 className="group"
               >
                 <Link href={`/blog/${post.slug}`} className="block">
-                  <div className="card p-6 hover:bg-white/[0.02] transition-all duration-300 group-hover:border-white/20">
+                  <div className="group relative block rounded-2xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.02] transition-all duration-300 group-hover:border-white/20">
+                    {/* dotted focus frame with corner brackets */}
+                    <div className="pointer-events-none absolute inset-0 z-10 -m-px border border-dashed border-white/15 bg-muted/15 focus-dots opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute -left-px -top-px h-2 w-2 border-l border-t border-white/90"></div>
+                      <div className="absolute -right-px -top-px h-2 w-2 border-r border-t border-white/90"></div>
+                      <div className="absolute -bottom-px -right-px h-2 w-2 border-b border-r border-white/90"></div>
+                      <div className="absolute -bottom-px -left-px h-2 w-2 border-b border-l border-white/90"></div>
+                    </div>
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div className="flex-1">
                         <h2 className="text-xl font-medium text-heading mb-2 group-hover:text-brand transition-colors">
@@ -158,7 +165,14 @@ export default function BlogPageClient() {
               className="group"
             >
               <Link href={`/blog/${post.slug}`} className="block">
-                <div className="flex items-center justify-between p-4 rounded-lg hover:bg-white/[0.02] transition-all duration-300 group-hover:border-l-2 group-hover:border-brand/60 border-l-2 border-transparent">
+                <div className="group relative flex items-center justify-between p-4 rounded-lg hover:bg-white/[0.02] transition-all duration-300 group-hover:border-l-2 group-hover:border-brand/60 border-l-2 border-transparent">
+                  {/* dotted focus frame with corner brackets */}
+                  <div className="pointer-events-none absolute inset-0 z-10 -m-px border border-dashed border-white/15 bg-muted/15 focus-dots opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute -left-px -top-px h-2 w-2 border-l border-t border-white/90"></div>
+                    <div className="absolute -right-px -top-px h-2 w-2 border-r border-t border-white/90"></div>
+                    <div className="absolute -bottom-px -right-px h-2 w-2 border-b border-r border-white/90"></div>
+                    <div className="absolute -bottom-px -left-px h-2 w-2 border-b border-l border-white/90"></div>
+                  </div>
                   <div className="flex-1">
                     <h3 className="font-medium text-heading mb-1 group-hover:text-brand transition-colors">
                       {post.title}
