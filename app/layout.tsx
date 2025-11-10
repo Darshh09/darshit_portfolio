@@ -14,11 +14,6 @@ export const metadata: Metadata = {
   title: 'Darshit | Freelance Full-Stack Developer',
   description: 'I design & build SaaS, data platforms, and AI dashboards.',
   metadataBase: new URL('https://darshitdev.in'),
-  icons: {
-    icon: [
-      { url: '/dsmainlogo.png', type: 'image/png' },
-    ],
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
