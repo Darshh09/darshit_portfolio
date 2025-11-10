@@ -16,13 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://darshitdev.in'),
   icons: {
     icon: [
-
-      { url: '/dsmainlogo.png', sizes: '1024x1024', type: 'image/png' },
-    ],
-    shortcut: '/dsmainlogo.png',
-    apple: [
-
-      { url: '/dsmainlogo.png', sizes: '1024x1024', type: 'image/png' },
+      { url: '/dsmainlogo.png', type: 'image/png' },
     ],
   },
 };

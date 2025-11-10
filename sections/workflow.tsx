@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import type { ComponentType } from "react";
 import Image from "next/image";
@@ -73,6 +73,9 @@ const LINES = POS.slice(0, -1).map((p, i) => ({
 
 export default function AnimatedWorkflow() {
   const controls = useAnimation();
+  const controlsRef = useRef(controls);
+  controlsRef.current = controls;
+
   const [isMounted, setIsMounted] = useState(false);
 
   const [active, setActive] = useState(0); // active step index
@@ -92,18 +95,16 @@ export default function AnimatedWorkflow() {
     return { cx: p.x + BOX.w / 2, cy: p.y + BOX.h / 2 };
   }, [active]);
 
-  // Set mounted state
+  // Set mounted state and initialize
   useEffect(() => {
     setIsMounted(true);
+    // Initialize cursor position
+    controlsRef.current.set({
+      x: POS[0].x + BOX.w / 2 - 16,
+      y: POS[0].y + BOX.h / 2 - 16,
+      opacity: 1
+    });
   }, []);
-
-  // Jump cursor to first step on mount
-  useEffect(() => {
-    if (isMounted) {
-      controls.set({ x: cursorTarget.cx - 16, y: cursorTarget.cy - 16, opacity: 1 });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMounted]);
 
   // Step lifecycle
   useEffect(() => {
@@ -132,7 +133,7 @@ export default function AnimatedWorkflow() {
             setActive(0);
             setPhase("processing");
             setBlink("yellow");
-            controls.set({
+            controlsRef.current.set({
               x: POS[0].x + BOX.w / 2 - 16,
               y: POS[0].y + BOX.h / 2 - 16,
               opacity: 1,
@@ -159,20 +160,18 @@ export default function AnimatedWorkflow() {
         // Move cursor
         const next = POS[active + 1];
         setPhase("moving");
-        if (isMounted) {
-          controls
-            .start({
-              x: next.x + BOX.w / 2 - 16,
-              y: next.y + BOX.h / 2 - 16,
-              transition: { duration: moveDuration / 1000, ease: "linear" },
-            })
-            .then(() => {
-              cancelAnimationFrame(raf);
-              setActive((a) => a + 1);
-              setPhase("processing");
-              setBlink("yellow");
-            });
-        }
+        controlsRef.current
+          .start({
+            x: next.x + BOX.w / 2 - 16,
+            y: next.y + BOX.h / 2 - 16,
+            transition: { duration: moveDuration / 1000, ease: "linear" },
+          })
+          .then(() => {
+            cancelAnimationFrame(raf);
+            setActive((a) => a + 1);
+            setPhase("processing");
+            setBlink("yellow");
+          });
       }, greenFlash);
     }, processingDuration);
 
@@ -180,9 +179,9 @@ export default function AnimatedWorkflow() {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
+      if (raf) cancelAnimationFrame(raf);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  }, [active, isMounted]);
 
   // Precompute icons for safe rendering
   const ActiveIcon = steps[active].icon;
