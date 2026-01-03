@@ -7,8 +7,6 @@ import { PageWrap } from '@/components/containers';
 import { Muted, SmallLabel } from '@/components/typography';
 import { motion } from 'framer-motion';
 import { IconCalendar, IconClock, IconTag, IconArrowRight, IconX } from '@tabler/icons-react';
-import { FloatingDock } from '@/components/ui/floating-dock';
-import { navigationLinks } from '@/lib/navigation';
 
 export default function BlogPageClient() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -227,8 +225,6 @@ export default function BlogPageClient() {
       </section>
       </div>
       </PageWrap>
-
-      <FloatingDock items={navigationLinks} />
     </>
   );
 }

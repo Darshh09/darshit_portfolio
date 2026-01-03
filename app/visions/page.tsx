@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { PageWrap } from '@/components/containers';
-import { FloatingDock } from '@/components/ui/floating-dock';
-import { navigationLinks } from '@/lib/navigation';
 import { IconPalette } from '@tabler/icons-react';
 
 export default function ArtistryPage() {
@@ -87,7 +85,6 @@ export default function ArtistryPage() {
           ))}
         </ul>
       </div>
-      <FloatingDock items={navigationLinks} />
     </PageWrap>
   );
 }

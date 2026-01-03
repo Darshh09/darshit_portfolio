@@ -2,6 +2,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Doto } from 'next/font/google';
+import { NavigationDock } from '@/components/navigation-dock';
 
 const doto = Doto({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="min-h-dvh">
           {children}
         </div>
+        <NavigationDock />
       </body>
     </html>
   );

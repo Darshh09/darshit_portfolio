@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { PageWrap } from '@/components/containers';
-import { FloatingDock } from '@/components/ui/floating-dock';
-import { navigationLinks } from '@/lib/navigation';
 import { Icon } from '@iconify/react';
 import { IconCode, IconCpu, IconDatabase } from '@tabler/icons-react';
 
@@ -168,7 +166,6 @@ export default function SkillsPage() {
           <p className="text-neutral-500 text-sm">And many more technologies I&apos;m constantly exploring... 🚀</p>
         </div>
       </div>
-      <FloatingDock items={navigationLinks} />
     </PageWrap>
   );
 }

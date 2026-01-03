@@ -92,6 +92,29 @@ body { font-family: var(--font-sans); }
   }
 }
 
+@keyframes streaming-animation {
+
+}
+
+@keyframes strokeMove {
+  0% {
+    stroke-dashoffset: 200;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.stroke-animate {
+  stroke-dasharray: 200;
+  animation: strokeMove 3s ease-in-out infinite;
+}
+
 @keyframes glow-effect {
   0%, 100% {
     background-color: rgba(255,255,255,0.05);
@@ -187,4 +210,181 @@ body { font-family: var(--font-sans); }
 
 .jetbrains-mono {
   font-family: 'JetBrains Mono', monospace;
+}
+
+/* StreamingAnimation styles */
+/* Main card - outer container */
+.animated-streaming-main-card {
+  position: relative;
+  width: 450px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: radial-gradient(
+      circle at top left,
+      rgba(50, 145, 255, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(97, 218, 251, 0.08),
+      transparent 60%
+    ),
+    #020817;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* Browser card - centered inner card */
+.animated-streaming-browser-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  height: 160px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(
+      circle at top left,
+      rgba(50, 145, 255, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(97, 218, 251, 0.12),
+      transparent 60%
+    ),
+    #020817;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  z-index: 10;
+}
+
+.animated-streaming-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.animated-streaming-window {
+  position: absolute;
+  inset: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1;
+}
+
+/* Toolbar controls */
+.animated-streaming-window [data-toolbar="true"] {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.animated-streaming-window [data-control="true"] {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.6);
+}
+
+/* Content area */
+.animated-streaming-window [data-content="true"] {
+  flex: 1;
+}
+
+/* Avatar circles / squares in header */
+.animated-streaming-window [data-avatar="true"]:not(svg) {
+  background: rgba(148, 163, 184, 0.15);
+  border-radius: 999px;
+}
+
+.animated-streaming-window [data-btn="true"] {
+  width: 32px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.2);
+}
+
+/* Lines (skeleton text) */
+.animated-streaming-window [data-line="true"] {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.4);
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.animated-streaming-window [data-line="true"][data-size="half"] {
+  width: 60%;
+}
+
+.animated-streaming-window [data-line="true"][data-variant="dim"] {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+/* Rectangles (blocks) */
+.animated-streaming-window [data-rectangles="true"] {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.animated-streaming-window [data-rectangle="true"] {
+  border-radius: 8px;
+  background: rgba(148, 163, 184, 0.18);
+  margin-bottom: 6px;
+}
+
+.animated-streaming-window [data-rectangle="true"][data-size="large"] {
+  background: rgba(148, 163, 184, 0.25);
+}
+
+/* Pulses positioning */
+.animated-streaming-pulse {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.animated-streaming-pulse[data-position="bottom-left"] {
+  left: 0;
+  bottom: 0;
+}
+
+.animated-streaming-pulse[data-position="bottom-right"] {
+  right: 0;
+  bottom: 0;
+}
+
+.animated-streaming-pulse[data-position="top-left"] {
+  left: 0;
+  top: 0;
+}
+
+.animated-streaming-pulse[data-position="top-right"] {
+  right: 0;
+  top: 0;
+}
+
+/* Stroke animation (line drawing) */
+@keyframes streamingStroke {
+  0% {
+    stroke-dashoffset: 450;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.animated-streaming-stroke {
+  animation: streamingStroke 2.8s ease-in-out infinite;
 }

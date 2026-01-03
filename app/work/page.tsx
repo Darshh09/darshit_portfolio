@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { PageWrap } from '@/components/containers';
-import { FloatingDock } from '@/components/ui/floating-dock';
-import { navigationLinks } from '@/lib/navigation';
 import {
   IconBriefcase,
 } from '@tabler/icons-react';
@@ -122,8 +120,6 @@ export default function WorkPage() {
           ))}
         </ul>
       </div>
-
-      <FloatingDock items={navigationLinks} />
     </PageWrap>
   );
 }

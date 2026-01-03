@@ -3,6 +3,7 @@ import {
   IconBrandGithub,
   IconHome,
   IconFileText,
+  IconPalette,
 } from '@tabler/icons-react';
 
 export const navigationLinks = [
@@ -136,6 +137,13 @@ export const navigationLinks = [
           ),
           href: "/blog",
         },
+  {
+    title: "Arts",
+    icon: (
+      <IconPalette className="h-full w-full text-white/70" />
+    ),
+    href: "/arts",
+  },
 
   {
     title: "Resume",

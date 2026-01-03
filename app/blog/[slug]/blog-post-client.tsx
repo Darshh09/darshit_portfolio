@@ -7,8 +7,6 @@ import { MonoHeader, Muted } from '@/components/typography';
 import { IconCalendar, IconClock, IconTag, IconArrowLeft } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { ShareButton } from '@/components/ui/share-button';
-import { FloatingDock } from '@/components/ui/floating-dock';
-import { navigationLinks } from '@/lib/navigation';
 
 interface BlogPostClientProps {
   post: BlogPost;
@@ -143,8 +141,6 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
         </motion.footer>
       </div>
       </PageWrap>
-
-      <FloatingDock items={navigationLinks} />
     </>
   );
 }
