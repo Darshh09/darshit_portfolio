@@ -7,38 +7,30 @@ export const USER = {
   username: 'darshitshukla',
   gender: 'male' as const,
   pronouns: 'he/him',
-  bio: 'I design & build SaaS, data platforms, and AI dashboards.',
+  bio: 'I design & build Landing Pages, data platforms and AI dashboards.',
   flipSentences: [
-    'I design & build SaaS, data platforms, and AI dashboards.',
-    'Full Stack Developer',
-    'Open Source Contributor',
+    'I design & build Landing Pages, data platforms and AI dashboards.',
+    'Design Engineer',
+    'Senior Frontend Engineer',
   ],
   address: 'India',
   phoneNumber: 'Kzg0Nzc3ODg4MTQ4', // E.164 format, base64 encoded
   email: 'ZGFyc2hpdHNodWtsYTE3NzdAZ21haWwuY29t', // base64 encoded: darshitshukla1777@gmail.com
   website: 'https://darshitdev.in',
-  jobTitle: 'Full Stack Developer',
+  jobTitle: 'Design Engineer',
   jobs: [
     {
-      title: 'Full Stack Developer',
+      title: 'Design Engineer',
       company: 'Freelance',
       website: 'https://darshitdev.in',
     },
   ],
-  about: `
-**5+ years** of experience as a **Design Engineer** and **Frontend Engineer**.
+  about: `I'm **Darshit Shukla**, a passionate **Design Engineer** and **Senior Full-Stack Developer** with over **5 years** of experience building modern, scalable, and impactful web applications.
 
-Full Stack Developer specializing in modern web technologies and building scalable applications. Skilled in **Next.js**, **React**, **TypeScript**, and modern front-end technologies; building high-quality, user-centric web and mobile applications. Passionate about exploring new technologies and turning ideas into reality through polished, thoughtfully crafted personal projects.
+My expertise spans **Next.js**, **React**, and **TypeScript**, delivering pixel-perfect, user-focused solutions—from SaaS platforms and developer tools to advanced dashboards. As a **freelance developer**, I help startups and businesses turn their ideas into powerful, high-quality products with clean code and scalable architecture.
 
-Hey there! I'm a **Senior Full-Stack Developer** — but not the usual kind.
-
-I build pixel-perfect, production-ready web apps with clean code and scalable architecture.
-
-And yes, I'm also a **Freelance Developer** and a problem-solver startups rely on.
-
-I combine design thinking with engineering precision to create products that look beautiful, feel intuitive, and scale effortlessly. Whether it's building SaaS platforms, developer tools, or complex dashboards — I love turning ambitious ideas into real, impactful software. Always exploring new technologies and new challenges to push the boundaries further.
-`,
-  avatar: '/dsmainlogo.png',
+Driven by curiosity, I love exploring new technologies, tackling complex problems, and creating software that looks great, feels intuitive, and makes a real difference.`,
+  avatar: '/profile.jpeg',
   ogImage: '/og-image.png',
   namePronunciationUrl: '',
   timeZone: 'Asia/Kolkata',
@@ -49,6 +41,8 @@ I combine design thinking with engineering precision to create products that loo
     'darshitdev',
     'full stack developer',
     'freelance developer',
+    'design engineer',
+    'senior frontend engineer',
   ],
-  dateCreated: '2024-01-01', // YYYY-MM-DD
+  dateCreated: '2026-01-06', // YYYY-MM-DD
 } satisfies User;

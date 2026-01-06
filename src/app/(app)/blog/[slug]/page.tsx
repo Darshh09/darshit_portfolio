@@ -1,45 +1,41 @@
-import { getTableOfContents } from 'fumadocs-core/content/toc';
-import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import type { BlogPosting as PageSchema, WithContext } from 'schema-dts';
+import { getTableOfContents } from "fumadocs-core/content/toc";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { BlogPosting as PageSchema, WithContext } from "schema-dts";
 
 import {
   TooltipContent,
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
-} from '@/components/base/ui/tooltip';
-import { InlineTOC } from '@/components/inline-toc';
-import { MDX } from '@/components/mdx';
-import { Button } from '@/components/ui/button';
-import { Kbd } from '@/components/ui/kbd';
-import { Prose } from '@/components/ui/typography';
-import { SITE_INFO } from '@/config/site';
-import { PostKeyboardShortcuts } from '@/features/blog/components/post-keyboard-shortcuts';
-import { LLMCopyButtonWithViewOptions } from '@/features/blog/components/post-page-actions';
-import { PostShareMenu } from '@/features/blog/components/post-share-menu';
+} from "@/components/base/ui/tooltip";
+import { InlineTOC } from "@/components/inline-toc";
+import { MDX } from "@/components/mdx";
+import { Button } from "@/components/ui/button";
+import { Kbd } from "@/components/ui/kbd";
+import { Prose } from "@/components/ui/typography";
+import { SITE_INFO } from "@/config/site";
+import { PostKeyboardShortcuts } from "@/features/blog/components/post-keyboard-shortcuts";
+import { LLMCopyButtonWithViewOptions } from "@/features/blog/components/post-page-actions";
+import { PostShareMenu } from "@/features/blog/components/post-share-menu";
 import {
   findNeighbour,
   getAllPosts,
   getPostBySlug,
-  getPostsByCategory,
-} from '@/features/blog/data/posts';
-import type { Post } from '@/features/blog/types/post';
-import { USER } from '@/features/portfolio/data/user';
-import { cn } from '@/lib/utils';
-
-import { Magic3DTabsDemo } from './magic-3d-tabs-demo';
-
-export const dynamicParams = false;
+} from "@/features/blog/data/posts";
+import type { Post } from "@/features/blog/types/post";
+import { USER } from "@/features/portfolio/data/user";
+import { cn } from "@/lib/utils";
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
-  const params = posts.map((post) => ({
+  const posts = getAllPosts().filter(
+    (post) => post.metadata.category === "blog"
+  );
+  return posts.map((post) => ({
     slug: post.slug,
   }));
-  return params;
 }
 
 export async function generateMetadata({
@@ -56,7 +52,7 @@ export async function generateMetadata({
 
   const { title, description, image, createdAt, updatedAt } = post.metadata;
 
-  const postUrl = `/arts/components/${post.slug}`;
+  const postUrl = `/blog/${post.slug}`;
   const ogImage = image || `/og/simple?title=${encodeURIComponent(title)}`;
 
   return {
@@ -67,7 +63,7 @@ export async function generateMetadata({
     },
     openGraph: {
       url: postUrl,
-      type: 'article',
+      type: "article",
       publishedTime: new Date(createdAt).toISOString(),
       modifiedTime: new Date(updatedAt).toISOString(),
       images: {
@@ -78,7 +74,7 @@ export async function generateMetadata({
       },
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       images: [ogImage],
     },
   };
@@ -86,18 +82,18 @@ export async function generateMetadata({
 
 function getPageJsonLd(post: Post): WithContext<PageSchema> {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
     headline: post.metadata.title,
     description: post.metadata.description,
     image:
       post.metadata.image ||
       `/og/simple?title=${encodeURIComponent(post.metadata.title)}`,
-    url: `${SITE_INFO.url}/arts/components/${post.slug}`,
+    url: `${SITE_INFO.url}/blog/${post.slug}`,
     datePublished: new Date(post.metadata.createdAt).toISOString(),
     dateModified: new Date(post.metadata.updatedAt).toISOString(),
     author: {
-      '@type': 'Person',
+      "@type": "Person",
       name: USER.displayName,
       identifier: USER.username,
       image: USER.avatar,
@@ -119,19 +115,11 @@ export default async function Page({
     notFound();
   }
 
-  if (post.metadata.category !== 'components') {
-    notFound();
-  }
+  const toc = getTableOfContents(post.content || "");
 
-  const toc = getTableOfContents(post.content || '');
-
-  const allPosts = getPostsByCategory('components')
-    .slice()
-    .sort((a, b) =>
-      a.metadata.title.localeCompare(b.metadata.title, 'en', {
-        sensitivity: 'base',
-      })
-    );
+  const allPosts = getAllPosts().filter(
+    (post) => post.metadata.category === "blog"
+  );
   const { previous, next } = findNeighbour(allPosts, slug);
 
   return (
@@ -139,15 +127,11 @@ export default async function Page({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getPageJsonLd(post)).replace(/</g, '\\u003c'),
+          __html: JSON.stringify(getPageJsonLd(post)).replace(/</g, "\\u003c"),
         }}
       />
 
-      <PostKeyboardShortcuts
-        basePath="/arts/components"
-        previous={previous}
-        next={next}
-      />
+      <PostKeyboardShortcuts basePath="/blog" previous={previous} next={next} />
 
       <div className="flex items-center justify-between p-2 pl-4">
         <Button
@@ -155,35 +139,37 @@ export default async function Page({
           variant="link"
           asChild
         >
-          <Link href="/arts">
+          <Link href="/blog">
             <ArrowLeftIcon />
-            Components
+            Blog
           </Link>
         </Button>
 
         <div className="flex items-center gap-2">
           <LLMCopyButtonWithViewOptions
-            markdownUrl={`/arts/components/${post.slug}.mdx`}
-            isComponent
+            markdownUrl={`/blog/${post.slug}.mdx`}
+            isComponent={post.metadata.category === "components"}
           />
 
-          <PostShareMenu
-            title={post.metadata.title}
-            url={`/arts/components/${post.slug}`}
-          />
+          <PostShareMenu title={post.metadata.title} url={`/blog/${post.slug}`} />
 
           <TooltipProvider>
             {previous && (
               <TooltipRoot>
-                <TooltipTrigger asChild>
+                <TooltipTrigger
+                  asChild
+                >
                   <Button variant="secondary" size="icon-sm" asChild>
-                    <Link href={`/arts/components/${previous.slug}`} />
+                    <Link href={`/blog/${previous.slug}`}>
+                      <ArrowLeftIcon />
+                      <span className="sr-only">Previous</span>
+                    </Link>
                   </Button>
                 </TooltipTrigger>
 
                 <TooltipContent className="pr-2 pl-3">
                   <div className="flex items-center gap-3">
-                    Previous Component
+                    Previous Post
                     <Kbd>
                       <ArrowLeftIcon />
                     </Kbd>
@@ -194,15 +180,20 @@ export default async function Page({
 
             {next && (
               <TooltipRoot>
-                <TooltipTrigger asChild>
+                <TooltipTrigger
+                  asChild
+                >
                   <Button variant="secondary" size="icon-sm" asChild>
-                    <Link href={`/arts/components/${next.slug}`} />
+                    <Link href={`/blog/${next.slug}`}>
+                      <span className="sr-only">Next</span>
+                      <ArrowRightIcon />
+                    </Link>
                   </Button>
                 </TooltipTrigger>
 
                 <TooltipContent className="pr-2 pl-3">
                   <div className="flex items-center gap-3">
-                    Next Component
+                    Next Post
                     <Kbd>
                       <ArrowRightIcon />
                     </Kbd>
@@ -214,6 +205,16 @@ export default async function Page({
         </div>
       </div>
 
+      <div className="screen-line-before screen-line-after">
+        <div
+          className={cn(
+            "h-8",
+            "before:absolute before:-left-[100vw] before:-z-1 before:h-full before:w-[200vw]",
+            "before:bg-[repeating-linear-gradient(315deg,var(--pattern-foreground)_0,var(--pattern-foreground)_1px,transparent_0,transparent_50%)] before:bg-size-[10px_10px] before:[--pattern-foreground:var(--color-edge)]/56"
+          )}
+        />
+      </div>
+
       <Prose className="px-4">
         <h1 className="screen-line-after text-3xl font-semibold">
           {post.metadata.title}
@@ -223,14 +224,8 @@ export default async function Page({
 
         <InlineTOC items={toc} />
 
-        {slug === 'magic-3d-tabs' && (
-          <div className="my-8 not-prose">
-            <Magic3DTabsDemo />
-          </div>
-        )}
-
         <div>
-          <MDX code={post.content || ''} />
+          <MDX code={post.content || ""} />
         </div>
       </Prose>
 
@@ -238,3 +233,4 @@ export default async function Page({
     </>
   );
 }
+

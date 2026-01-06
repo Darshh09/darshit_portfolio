@@ -20,6 +20,7 @@ import { TeckStack } from '@/features/portfolio/components/teck-stack';
 import { TestimonialsMarquee } from '@/features/portfolio/components/testimonials-marquee';
 import { USER } from '@/features/portfolio/data/user';
 import { cn } from '@/lib/utils';
+import { Animation } from '@/features/portfolio/components/animation';
 
 export default function Page() {
   return (
@@ -46,8 +47,8 @@ export default function Page() {
         <About />
         <Separator />
 
-        <TestimonialsMarquee />
-        <Separator />
+       {/*  <TestimonialsMarquee />
+        <Separator /> */}
 
         <GitHubContributions />
         <Separator />
@@ -55,18 +56,7 @@ export default function Page() {
         <TeckStack />
         <Separator />
 
-        <div className="screen-line-before screen-line-after border-x border-edge">
-          <div className="p-4">
-            <FirstAnimation />
-          </div>
-        </div>
-        <Separator />
-
-        <div className="screen-line-before screen-line-after border-x border-edge">
-          <div className="p-4">
-            <SecondAnimation />
-          </div>
-        </div>
+        <Animation />
         <Separator />
 
         <Components />

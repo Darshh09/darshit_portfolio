@@ -14,9 +14,12 @@ export function PostItem({
   post: Post;
   shouldPreloadImage?: boolean;
 }) {
+  const isComponent = post.metadata.category === "components";
+  const href = isComponent ? `/arts/components/${post.slug}` : `/blog/${post.slug}`;
+
   return (
     <Link
-      href={`/arts/components/${post.slug}`}
+      href={href}
       className={cn(
         "group/post flex flex-col gap-2 p-2",
         "max-sm:screen-line-before max-sm:screen-line-after",

@@ -16,7 +16,11 @@ export const EXPERIENCES: Experience[] = [
         icon: "code",
         description: `- Rebuilt core apps with React/React Native → +30% retention
 - Split monolith to services (Flask/Django/Node) → −60% deploy time
-- Added CI/CD, observability, and auth hardening`,
+- Added CI/CD, observability, and auth hardening
+- Develop and maintain core features to enhance functionality and user experience.
+- Ensure UI/UX consistency and adherence to standards.
+- Implement robust frontend solutions for web and mobile platforms.
+- Analyze technical capabilities and provide optimal solutions.`,
         skills: ["React", "RN", "Node", "Flask", "AWS", "K8s"],
         isExpanded: true,
       },

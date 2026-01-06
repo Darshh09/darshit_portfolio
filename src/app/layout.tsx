@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import type { WebSite, WithContext } from 'schema-dts';
 
 import { ConsentManager } from '@/components/consent-manager';
@@ -104,7 +105,9 @@ export default function RootLayout({
 
       <body>
         <Providers>
-          <ConsentManager>{children}</ConsentManager>
+          <NuqsAdapter>
+            <ConsentManager>{children}</ConsentManager>
+          </NuqsAdapter>
         </Providers>
       </body>
     </html>
