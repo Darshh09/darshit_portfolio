@@ -98,6 +98,78 @@ export const Index: Record<string, any> = {`;
     'utf8'
   );
 
+  // Build individual component JSON files for shadcn CLI
+  // These are required for namespaced registry access: @darx/component-name
+  const components = registry.items.filter(
+    (item) => item.type === 'registry:component'
+  );
+
+  for (const component of components) {
+    if (!component.files || component.files.length === 0) {
+      continue;
+    }
+
+    // Read file content for each file in the component
+    const filesWithContent = await Promise.all(
+      component.files.map(async (file) => {
+        let filePath: string;
+        const filePathStr = file.path;
+
+        if (filePathStr.startsWith('src/')) {
+          filePath = path.join(process.cwd(), filePathStr);
+        } else {
+          filePath = path.join(process.cwd(), 'src/registry', filePathStr);
+        }
+
+        try {
+          const content = await fs.readFile(filePath, 'utf8');
+          return {
+            ...file,
+            path: filePathStr.startsWith('src/')
+              ? filePathStr
+              : `src/registry/${filePathStr}`,
+            content,
+          };
+        } catch (error) {
+          console.warn(
+            `Warning: Could not read file ${filePath} for component ${component.name}:`,
+            error
+          );
+          return {
+            ...file,
+            path: filePathStr.startsWith('src/')
+              ? filePathStr
+              : `src/registry/${filePathStr}`,
+          };
+        }
+      })
+    );
+
+    // Create individual component JSON file
+    const componentJSON = {
+      $schema: 'https://ui.shadcn.com/schema/registry-item.json',
+      name: component.name,
+      type: component.type,
+      title: component.title,
+      author: component.author || 'darx <darshit@darshitdev.in>',
+      description: component.description,
+      dependencies: component.dependencies || [],
+      registryDependencies: component.registryDependencies || [],
+      files: filesWithContent,
+      docs: component.docs,
+    };
+
+    const componentFilePath = path.join(
+      PUBLIC_REGISTRY_PATH,
+      `${component.name}.json`
+    );
+    await fs.writeFile(
+      componentFilePath,
+      JSON.stringify(componentJSON, null, 2),
+      'utf8'
+    );
+  }
+
   // Build /src/__registry__/index.tsx
   rimraf.sync(path.join(REGISTRY_PATH, 'index.tsx'));
   await fs.writeFile(path.join(REGISTRY_PATH, 'index.tsx'), index, 'utf8');
