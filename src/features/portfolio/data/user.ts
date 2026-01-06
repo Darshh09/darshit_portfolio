@@ -31,7 +31,7 @@ My expertise spans **Next.js**, **React**, and **TypeScript**, delivering pixel-
 
 Driven by curiosity, I love exploring new technologies, tackling complex problems, and creating software that looks great, feels intuitive, and makes a real difference.`,
   avatar: '/profile.jpeg',
-  ogImage: '/og-image.png',
+  ogImage: '/dsmainlogo.png',
   namePronunciationUrl: '',
   timeZone: 'Asia/Kolkata',
   keywords: [

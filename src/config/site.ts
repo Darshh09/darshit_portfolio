@@ -1,7 +1,7 @@
 export const SITE_INFO = {
   name: 'Darshit | Design Engineer',
   url: process.env.APP_URL || 'https://darshitdev.in',
-  ogImage: '/profile.jpeg',
+  ogImage: '../public/dsmainlogo.png',
   description: 'I design & build SaaS, data platforms, and AI dashboards.',
   keywords: ['design', 'engineer', 'portfolio'],
 };
