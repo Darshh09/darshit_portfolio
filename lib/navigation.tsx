@@ -143,7 +143,7 @@ export const navigationLinks = [
       <IconPalette className="h-full w-full text-white/70" />
     ),
     href: "/arts",
-  },
+        },
 
   {
     title: "Resume",

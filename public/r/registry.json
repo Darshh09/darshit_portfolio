@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "darx",
+  "homepage": "https://darshitdev.in/arts",
+  "items": [
+    {
+      "name": "magic-3d-tabs",
+      "type": "registry:component",
+      "title": "Magic 3D Tabs",
+      "author": "darshitdev <darshit@darshitdev.in>",
+      "description": "A beautiful 3D tabs component with perspective effects",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/magic-3d-tabs/magic-3d-tabs.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "https://darshitdev.in/arts/components/magic-3d-tabs"
+    }
+  ]
+}
