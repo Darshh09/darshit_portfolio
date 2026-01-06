@@ -12,6 +12,5 @@ export const registryConfig = {
    * This tells shadcn CLI where to fetch component definitions when installing with namespace prefix
    * @see https://ui.shadcn.com/docs/registry/namespace#url-pattern-system
    */
-  namespaceUrl:
-    process.env.REGISTRY_NAMESPACE_URL || 'https://darshitdev.in/r/{name}.json',
+  namespaceUrl: "https://darshitdev.in/r/{name}.json",
 };
