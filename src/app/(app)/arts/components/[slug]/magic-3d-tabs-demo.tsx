@@ -41,6 +41,36 @@ export function Magic3DTabsDemo() {
                   </p>
                 </div>
                 <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                  <h4 className="font-semibold text-white mb-2">3D Perspective</h4>
+                  <p className="text-sm text-neutral-300">
+                    Immersive 3D rotation effects that respond to mouse movement
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                  <h4 className="font-semibold text-white mb-2">3D Perspective</h4>
+                  <p className="text-sm text-neutral-300">
+                    Immersive 3D rotation effects that respond to mouse movement
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                  <h4 className="font-semibold text-white mb-2">3D Perspective</h4>
+                  <p className="text-sm text-neutral-300">
+                    Immersive 3D rotation effects that respond to mouse movement
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                  <h4 className="font-semibold text-white mb-2">3D Perspective</h4>
+                  <p className="text-sm text-neutral-300">
+                    Immersive 3D rotation effects that respond to mouse movement
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                  <h4 className="font-semibold text-white mb-2">3D Perspective</h4>
+                  <p className="text-sm text-neutral-300">
+                    Immersive 3D rotation effects that respond to mouse movement
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
                   <h4 className="font-semibold text-white mb-2">Smooth Animations</h4>
                   <p className="text-sm text-neutral-300">
                     Spring-based animations for all interactions

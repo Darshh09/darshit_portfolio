@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from '@/lib/utils';
 
@@ -37,6 +37,7 @@ export function Magic3DTabs({
   );
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredTabIndex, setHoveredTabIndex] = useState<number | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const getTabDomId = (label: string) =>
     `${generatedId}-tab-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
@@ -48,6 +49,17 @@ export function Magic3DTabs({
       setActiveTab(safeTabs[0] ?? null);
     }
   }, [activeTab, safeTabs]);
+
+  // Focus management: when tab changes, focus the panel
+  useEffect(() => {
+    if (activeTab && panelRef.current) {
+      // Small delay to ensure the panel is rendered
+      const timeoutId = setTimeout(() => {
+        panelRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [activeTab]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -70,7 +82,13 @@ export function Magic3DTabs({
     >
       <div className="flex flex-col items-center justify-center">
         {/* Unique Tab Navigation with 3D Effect */}
-        <div className="w-full overflow-x-auto overflow-y-hidden  mb-8">
+        <div
+          className="w-full overflow-x-auto overflow-y-hidden mb-8 no-scrollbar"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+        >
           <div
             className="flex min-w-max items-center gap-2 sm:gap-3 justify-center"
             role="tablist"
@@ -127,18 +145,19 @@ export function Magic3DTabs({
                         }}
                         className={cn(
                           "absolute inset-0 rounded-full",
-                          "bg-white/10 backdrop-blur-sm",
-                          "border border-white/20",
-                          "shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025]",
-                          "before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-white/5 before:to-transparent",
+                          "bg-primary dark:bg-white/10",
+                          "border-2 border-primary dark:border-white/20",
+                          "shadow-md dark:shadow-white/[0.025]",
                           activeTabClassName
                         )}
                       />
                     )}
                     <span
                       className={cn(
-                        "relative z-10 whitespace-nowrap transition-colors",
-                        isActive ? "text-white" : "text-neutral-400"
+                        "relative z-10 whitespace-nowrap transition-colors font-semibold",
+                        isActive
+                          ? "text-primary-foreground dark:text-white"
+                          : "text-muted-foreground dark:text-neutral-400"
                       )}
                     >
                       {tab.title ?? tab.label}
@@ -235,30 +254,35 @@ export function Magic3DTabs({
                   }}
                   style={{
                     transformStyle: "preserve-3d",
-                    background: tab.gradient || "color-mix(in oklab, var(--color-card) 96%, black 4%)",
-                    border: "1px solid rgba(255,255,255,.06)",
+                    background: tab.gradient || undefined,
                     borderRadius: "var(--radius)",
                   }}
                   className={cn(
                     "w-full h-full rounded-2xl relative overflow-hidden",
+                    "bg-card border border-border",
+                    !tab.gradient && "bg-background dark:bg-card/90",
                     contentClassName
                   )}
                   role="tabpanel"
                   id={getPanelDomId(tab.label)}
                   aria-labelledby={getTabDomId(tab.label)}
+                  tabIndex={0}
+                  ref={panelRef}
                 >
                   {/* Dynamic Shadow Layer - Clean & Responsive */}
                   <motion.div
                     className="absolute inset-0 rounded-2xl pointer-events-none"
                     animate={{
                       boxShadow: `
-                        0 0 0 1px rgba(255,255,255,.06),
+                        0 0 0 1px hsl(var(--border)),
+                        0 4px 12px rgba(0,0,0,.08),
+                        0 20px 50px rgba(0,0,0,.12),
                         0 20px 50px rgba(0,0,0,.35),
-                        ${mousePosition.x * 0.3}px 0 ${Math.abs(mousePosition.x) * 1.5}px rgba(0, 0, 0, ${0.15 + Math.abs(mousePosition.x) * 0.01}),
-                        ${-mousePosition.x * 0.3}px 0 ${Math.abs(mousePosition.x) * 1.5}px rgba(0, 0, 0, ${0.15 + Math.abs(mousePosition.x) * 0.01}),
-                        0 ${mousePosition.y * 0.3}px ${Math.abs(mousePosition.y) * 1.5}px rgba(0, 0, 0, ${0.1 + Math.abs(mousePosition.y) * 0.01}),
-                        inset 0 1px 0 rgba(255,255,255,0.02),
-                        inset 0 -1px 0 rgba(255,255,255,0.01)
+                        ${mousePosition.x * 0.3}px 0 ${Math.abs(mousePosition.x) * 1.5}px rgba(0, 0, 0, ${0.06 + Math.abs(mousePosition.x) * 0.003}),
+                        ${-mousePosition.x * 0.3}px 0 ${Math.abs(mousePosition.x) * 1.5}px rgba(0, 0, 0, ${0.06 + Math.abs(mousePosition.x) * 0.003}),
+                        0 ${mousePosition.y * 0.3}px ${Math.abs(mousePosition.y) * 1.5}px rgba(0, 0, 0, ${0.04 + Math.abs(mousePosition.y) * 0.003}),
+                        inset 0 1px 0 hsl(var(--border) / 0.3),
+                        inset 0 -1px 0 hsl(var(--border) / 0.2)
                       `,
                     }}
                     transition={{
@@ -268,15 +292,15 @@ export function Magic3DTabs({
                   />
 
                   {/* 3D Content Layers */}
-                  <div className="relative w-full h-full p-4 sm:p-6 md:p-8">
+                  <div className="relative w-full h-full flex flex-col">
                     {/* Animated Background Gradient */}
                     <motion.div
-                      className="absolute inset-0 opacity-40"
+                      className="absolute inset-0 opacity-20 dark:opacity-40"
                       animate={{
                         background: [
-                          `radial-gradient(circle at 0% 0%, rgba(181, 201, 255, 0.2), transparent 50%)`,
-                          `radial-gradient(circle at 100% 100%, rgba(181, 201, 255, 0.2), transparent 50%)`,
-                          `radial-gradient(circle at 0% 0%, rgba(181, 201, 255, 0.2), transparent 50%)`,
+                          `radial-gradient(circle at 0% 0%, hsl(var(--primary) / 0.1), transparent 50%)`,
+                          `radial-gradient(circle at 100% 100%, hsl(var(--primary) / 0.1), transparent 50%)`,
+                          `radial-gradient(circle at 0% 0%, hsl(var(--primary) / 0.1), transparent 50%)`,
                         ],
                       }}
                       transition={{
@@ -301,7 +325,7 @@ export function Magic3DTabs({
                         return (
                           <motion.div
                             key={i}
-                            className="absolute w-2 h-2 rounded-full bg-white/10 blur-sm"
+                            className="absolute w-2 h-2 rounded-full bg-primary/20 dark:bg-white/10 blur-sm"
                             initial={{
                               x: seededRandom(1) * 100 + "%",
                               y: seededRandom(2) * 100 + "%",
@@ -319,7 +343,7 @@ export function Magic3DTabs({
                                 seededRandom(8) * 100 + "%",
                               ],
                               scale: [0, 1, 0],
-                              opacity: [0, 0.6, 0],
+                              opacity: [0, 0.4, 0],
                             }}
                             transition={{
                               duration: 4 + seededRandom(9) * 2,
@@ -332,9 +356,9 @@ export function Magic3DTabs({
                       })}
                     </div>
 
-                    {/* Content with 3D Transform */}
+                    {/* Content with 3D Transform - Scrollable */}
                     <motion.div
-                      className="relative z-10 h-full flex flex-col"
+                      className="relative z-10 flex-1 flex flex-col min-h-0 overflow-hidden"
                       style={{
                         transform: "translateZ(50px)",
                       }}
@@ -344,7 +368,7 @@ export function Magic3DTabs({
                           initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                           transition={{ delay: 0.15, duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                          className="text-xl sm:text-2xl md:text-3xl font-semibold text-white mb-4 sm:mb-6"
+                          className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground dark:text-white mb-4 sm:mb-6 px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 md:pt-8 shrink-0"
                         >
                           {tab.title}
                         </motion.h3>
@@ -353,9 +377,11 @@ export function Magic3DTabs({
                         initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{ delay: 0.25, duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                        className="text-neutral-200 flex-1 text-sm sm:text-base"
+                        className="text-foreground dark:text-neutral-200 flex-1 overflow-y-auto overflow-x-hidden text-sm sm:text-base px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 md:pb-8 min-h-0"
                         style={{
                           transform: "translateZ(30px)",
+                          scrollbarWidth: 'thin',
+                          scrollbarColor: 'hsl(var(--border)) transparent',
                         }}
                       >
                         {tab.content}
@@ -365,7 +391,7 @@ export function Magic3DTabs({
                     {/* 3D Edge Highlights */}
                     <div className="absolute inset-0 pointer-events-none">
                       <div
-                        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/50 dark:via-white/20 to-transparent"
                         style={{
                           transform: "translateZ(100px)",
                         }}

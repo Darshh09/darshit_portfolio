@@ -43,6 +43,7 @@ function TooltipTrigger(
   if (asChild && React.isValidElement(children)) {
     const child = React.Children.only(children) as React.ReactElement<{
       onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+      asChild?: boolean;
     }>;
     return (
       <TooltipPrimitive.Trigger
@@ -52,8 +53,12 @@ function TooltipTrigger(
           const existingOnClick = child.props.onClick;
           const triggerOnClick = triggerProps.onClick;
 
+          // Extract asChild from child props to prevent it from being passed to DOM
+          const { asChild: _, ...childProps } = child.props;
+
           const mergedProps = {
             ...triggerProps,
+            ...childProps,
             onClick: (e: React.MouseEvent<HTMLElement>) => {
               // Call child's onClick first, then trigger's onClick
               existingOnClick?.(e);
@@ -63,7 +68,7 @@ function TooltipTrigger(
 
           return React.cloneElement(child, mergedProps);
         }) as TooltipPrimitive.Trigger.Props["render"]}
-        {...props}
+        {...rest}
       />
     );
   }
