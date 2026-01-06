@@ -5,6 +5,8 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 function TooltipProvider({
   delay = 0,
   ...props
@@ -30,29 +32,29 @@ function Tooltip(props: TooltipPrimitive.Root.Props) {
   );
 }
 
-function TooltipTrigger({
-  asChild,
-  children,
-  render,
-  ...props
-}: TooltipPrimitive.Trigger.Props & {
-  asChild?: boolean;
-  render?: React.ReactElement;
-}) {
+function TooltipTrigger(
+  props: TooltipPrimitive.Trigger.Props & {
+    asChild?: boolean;
+    render?: React.ReactElement;
+  }
+) {
+  const { asChild, children, render, ...rest } = props;
   // If asChild is used, convert to render prop pattern to avoid nested buttons
   if (asChild && React.isValidElement(children)) {
-    const child = React.Children.only(children) as React.ReactElement<any>;
+    const child = React.Children.only(children) as React.ReactElement<{
+      onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+    }>;
     return (
       <TooltipPrimitive.Trigger
         data-slot="tooltip-trigger"
-        render={(triggerProps: any) => {
+        render={((triggerProps: any) => {
           // Merge onClick handlers - both from triggerProps and child props
-          const existingOnClick = (child.props as any)?.onClick;
-          const triggerOnClick = triggerProps?.onClick;
+          const existingOnClick = child.props.onClick;
+          const triggerOnClick = triggerProps.onClick;
 
           const mergedProps = {
             ...triggerProps,
-            onClick: (e: React.MouseEvent) => {
+            onClick: (e: React.MouseEvent<HTMLElement>) => {
               // Call child's onClick first, then trigger's onClick
               existingOnClick?.(e);
               triggerOnClick?.(e);
@@ -60,7 +62,7 @@ function TooltipTrigger({
           };
 
           return React.cloneElement(child, mergedProps);
-        }}
+        }) as TooltipPrimitive.Trigger.Props["render"]}
         {...props}
       />
     );
@@ -68,34 +70,37 @@ function TooltipTrigger({
 
   // If render prop is provided, use it directly
   if (render && React.isValidElement(render)) {
+    const renderElement = render as React.ReactElement<{
+      onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+    }>;
     return (
       <TooltipPrimitive.Trigger
         data-slot="tooltip-trigger"
-        render={(triggerProps: any) => {
+        render={((triggerProps: any) => {
           // Merge onClick handlers
-          const existingOnClick = (render.props as any)?.onClick;
-          const triggerOnClick = triggerProps?.onClick;
+          const existingOnClick = renderElement.props.onClick;
+          const triggerOnClick = triggerProps.onClick;
 
           const mergedProps = {
             ...triggerProps,
-            onClick: (e: React.MouseEvent) => {
+            onClick: (e: React.MouseEvent<HTMLElement>) => {
               existingOnClick?.(e);
               triggerOnClick?.(e);
             },
           };
 
           return React.cloneElement(render, mergedProps);
-        }}
-        {...props}
+        }) as TooltipPrimitive.Trigger.Props["render"]}
+        {...rest}
       >
-        {children}
+        {children as React.ReactNode}
       </TooltipPrimitive.Trigger>
     );
   }
 
   // Default: render children normally
   return (
-    <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props}>
+    <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...rest}>
       {children}
     </TooltipPrimitive.Trigger>
   );

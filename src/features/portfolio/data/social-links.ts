@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { SocialLink } from '../types/social-links';
 
 import {
@@ -10,31 +12,31 @@ import {
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    icon: <TwitterIcon />,
+    icon: React.createElement(TwitterIcon),
     title: 'Twitter',
     description: '@Darshhh1800',
     href: 'https://x.com/Darshhh1800',
   },
   {
-    icon: <GithubIcon />,
+    icon: React.createElement(GithubIcon),
     title: 'Github',
     description: 'Darshh09',
     href: 'https://github.com/Darshh09',
   },
   {
-    icon: <ResumeIcon />,
+    icon: React.createElement(ResumeIcon),
     title: 'Resume',
     description: 'View my resume',
     href: '/Darshit_Resume.pdf',
   },
   {
-    icon: <LinkedinIcon />,
+    icon: React.createElement(LinkedinIcon),
     title: 'Linkedin',
     description: 'darshitshukla',
     href: 'https://www.linkedin.com/in/darshitshukla/',
   },
   {
-    icon: <BookMeetingIcon />,
+    icon: React.createElement(BookMeetingIcon),
     title: 'Book Meeting',
     description: 'Schedule a call',
     href: '#cal-embed',

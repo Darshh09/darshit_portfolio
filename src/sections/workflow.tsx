@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import type { ComponentType } from "react";
 import Image from "next/image";
@@ -89,12 +89,6 @@ export default function AnimatedWorkflow() {
   const moveDuration = 1200;       // ms (move to next step + draw line)
   const finalHold = 1200;          // ms hold on last step before reset
 
-  // Cursor target (center of active box)
-  const cursorTarget = useMemo(() => {
-    const p = POS[active];
-    return { cx: p.x + BOX.w / 2, cy: p.y + BOX.h / 2 };
-  }, [active]);
-
   // Set mounted state and initialize
   useEffect(() => {
     setIsMounted(true);
@@ -110,24 +104,18 @@ export default function AnimatedWorkflow() {
   useEffect(() => {
     if (!isMounted) return;
 
-    let t1: any, t2: any, t3: any, raf: number;
-
-    // Start processing (yellow)
-    setPhase("processing");
-    setBlink("yellow");
-
-    t1 = setTimeout(() => {
+    const t1: ReturnType<typeof setTimeout> = setTimeout(() => {
       // Finish processing -> green blink
       setPhase("done");
       setBlink("green");
 
-      t2 = setTimeout(() => {
+      const t2: ReturnType<typeof setTimeout> = setTimeout(() => {
         // Done -> move to next (or reset if last)
         setBlink("none");
 
         if (active === steps.length - 1) {
           setPhase("moving");
-          t3 = setTimeout(() => {
+          const t3: ReturnType<typeof setTimeout> = setTimeout(() => {
             // reset
             setProgress(Array(LINES.length).fill(0));
             setActive(0);
@@ -139,12 +127,15 @@ export default function AnimatedWorkflow() {
               opacity: 1,
             });
           }, finalHold);
-          return;
+
+          // Clear t3 on unmount
+          return () => clearTimeout(t3);
         }
 
         // Draw connection line for this leg
         const idx = active;
         const start = performance.now();
+        let raf: number | undefined;
         const animateLine = (now: number) => {
           const elapsed = now - start;
           const pct = Math.min(1, elapsed / moveDuration);
@@ -167,19 +158,19 @@ export default function AnimatedWorkflow() {
             transition: { duration: moveDuration / 1000, ease: "linear" },
           })
           .then(() => {
-            cancelAnimationFrame(raf);
+            if (raf !== undefined) cancelAnimationFrame(raf);
             setActive((a) => a + 1);
             setPhase("processing");
             setBlink("yellow");
           });
       }, greenFlash);
+
+      // Cleanup t2 if effect re-runs
+      return () => clearTimeout(t2);
     }, processingDuration);
 
     return () => {
       clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      if (raf) cancelAnimationFrame(raf);
     };
   }, [active, isMounted]);
 

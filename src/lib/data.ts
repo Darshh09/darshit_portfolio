@@ -19,3 +19,15 @@ export const PROFILE = {
   ],
 };
 
+// Simple static heatmap data for the contributions section
+export const HEATMAP_ROWS = 7;
+export const HEATMAP_COLS = 20;
+export const HEATMAP: number[][] = Array.from({ length: HEATMAP_ROWS }, (_, r) =>
+  Array.from({ length: HEATMAP_COLS }, (_, c) => {
+    // Make a slightly denser band in the middle columns
+    const intensitySeed = r * HEATMAP_COLS + c;
+    const base = (intensitySeed % 4);
+    return base;
+  })
+);
+

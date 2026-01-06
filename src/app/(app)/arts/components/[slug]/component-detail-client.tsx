@@ -211,18 +211,24 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
                     <span className="text-[#F97583]">as</span>{' '}
                     <span className="text-white">React</span>{' '}
                     <span className="text-[#F97583]">from</span>{' '}
-                    <span className="text-[#9ECBFF]">"react"</span>;
+                    <span className="text-[#9ECBFF]">&quot;react&quot;</span>;
                     <br />
                     <br />
                     <span className="text-[#F97583]">import</span>{' '}
                     <span className="text-white">{'{ Separator }'}</span>{' '}
                     <span className="text-[#F97583]">from</span>{' '}
-                    <span className="text-[#9ECBFF]">"@/components/ui/separator"</span>;
+                    <span className="text-[#9ECBFF]">
+                      &quot;@/components/ui/separator&quot;
+                    </span>
+                    ;
                     <br />
                     <span className="text-[#F97583]">import</span>{' '}
                     <span className="text-white">{'{ Magic3DTabs }'}</span>{' '}
                     <span className="text-[#F97583]">from</span>{' '}
-                    <span className="text-[#9ECBFF]">"@/components/magic-3d-tabs"</span>;
+                    <span className="text-[#9ECBFF]">
+                      &quot;@/components/magic-3d-tabs&quot;
+                    </span>
+                    ;
                     <br />
                     <br />
                     <span className="text-[#F97583]">const</span>{' '}
@@ -259,14 +265,14 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
                     <span className="text-[#85E89D]">div</span>{' '}
                     <span className="text-[#B392F0]">className</span>
                     <span className="text-[#F97583]">=</span>
-                    <span className="text-[#9ECBFF]">"rounded-lg border"</span>
+                    <span className="text-[#9ECBFF]">&quot;rounded-lg border&quot;</span>
                     <span className="text-white">{'>'}</span>
                     <br />
                     <span className="text-white">      {'<'}</span>
                     <span className="text-[#79B8FF]">Magic3DTabs</span>{' '}
                     <span className="text-[#B392F0]">className</span>
                     <span className="text-[#F97583]">=</span>
-                    <span className="text-[#9ECBFF]">"h-72 w-48"</span>
+                    <span className="text-[#9ECBFF]">&quot;h-72 w-48&quot;</span>
                     <span className="text-white">{'>'}</span>
                     <br />
                     <span className="text-white">        {'{/* content */}'}</span>

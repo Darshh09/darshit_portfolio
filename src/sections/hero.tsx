@@ -24,7 +24,7 @@ export default function Hero() {
         <div className="flex-1">
 
       <div className="jetbrains-mono flex items-center gap-1.5 mb-2 text-sm tracking-tighter text-muted-light">
-        <span>Hey It's me</span>
+        <span>Hey It&apos;s me</span>
         <svg
           height="1em"
           width="1em"

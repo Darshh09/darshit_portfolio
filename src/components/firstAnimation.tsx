@@ -103,7 +103,7 @@ const PhoneIcon = () => (
   </svg>
 );
 
-const SmsIcon = (color: string) => (
+const SmsIcon = () => (
   <svg viewBox="0 0 40 40" fill="none" aria-hidden="true" className="size-10">
     <g fillRule="evenodd" clipRule="evenodd" filter="url(#email-sms-icon-shadow)">
       <path

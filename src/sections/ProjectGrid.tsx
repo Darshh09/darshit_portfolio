@@ -36,14 +36,30 @@ type CardProps = {
 };
 
 function ProjectCard({ title, blurb, cover, stars, href, tags }: CardProps) {
-  const Wrapper = href ? Link : 'div';
-  const props = href ? { href, target: '_blank', rel: 'noreferrer' } : {};
+  if (href) {
+    return (
+      <Link
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        className="group relative block rounded-2xl border border-white/10 bg-white/[0.04] p-4"
+      >
+        {/* dotted focus frame with corner brackets */}
+        <div className="pointer-events-none absolute inset-0 z-10 -m-px border border-dashed border-white/15 bg-muted/15 focus-dots">
+          <div className="absolute -left-px -top-px h-2 w-2 border-l border-t border-white/90"></div>
+          <div className="absolute -right-px -top-px h-2 w-2 border-r border-t border-white/90"></div>
+          <div className="absolute -bottom-px -right-px h-2 w-2 border-b border-r border-white/90"></div>
+          <div className="absolute -bottom-px -left-px h-2 w-2 border-b border-l border-white/90"></div>
+        </div>
+
+        {/* cover */}
+        <ProjectCardBody title={title} blurb={blurb} cover={cover} stars={stars} tags={tags} />
+      </Link>
+    );
+  }
 
   return (
-    <Wrapper
-      {...(props as any)}
-      className="group relative block rounded-2xl border border-white/10 bg-white/[0.04] p-4"
-    >
+    <div className="group relative block rounded-2xl border border-white/10 bg-white/[0.04] p-4">
       {/* dotted focus frame with corner brackets */}
       <div className="pointer-events-none absolute inset-0 z-10 -m-px border border-dashed border-white/15 bg-muted/15 focus-dots">
         <div className="absolute -left-px -top-px h-2 w-2 border-l border-t border-white/90"></div>
@@ -52,6 +68,21 @@ function ProjectCard({ title, blurb, cover, stars, href, tags }: CardProps) {
         <div className="absolute -bottom-px -left-px h-2 w-2 border-b border-l border-white/90"></div>
       </div>
 
+      {/* cover */}
+      <ProjectCardBody title={title} blurb={blurb} cover={cover} stars={stars} tags={tags} />
+    </div>
+  );
+}
+
+function ProjectCardBody({
+  title,
+  blurb,
+  cover,
+  stars,
+  tags,
+}: Pick<CardProps, 'title' | 'blurb' | 'cover' | 'stars' | 'tags'>) {
+  return (
+    <>
       {/* cover */}
       <div className="relative mb-3 h-[180px] w-full overflow-hidden rounded-xl border border-white/10 bg-black/50">
         {cover ? (
@@ -90,6 +121,6 @@ function ProjectCard({ title, blurb, cover, stars, href, tags }: CardProps) {
           <span key={t} className="tag">{t}</span>
         ))}
       </div>
-    </Wrapper>
+    </>
   );
 }

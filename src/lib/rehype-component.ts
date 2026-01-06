@@ -6,10 +6,20 @@ import { visit } from 'unist-util-visit';
 
 import type { UnistNode, UnistTree } from '@/types/unist';
 
+type RegistryEntry = {
+  files: Array<
+    | string
+    | {
+        path?: string;
+      }
+  >;
+};
+
 // Dynamic import for registry - will be available after build
-let Index: Record<string, any> = {};
+let Index: Record<string, RegistryEntry> = {};
 try {
-  Index = require('@/__registry__/index').Index || {};
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  Index = (require('@/__registry__/index') as { Index?: Record<string, RegistryEntry> }).Index || {};
 } catch {
   // Registry not built yet
 }
@@ -37,28 +47,40 @@ export function rehypeComponent() {
         }
 
         try {
-          let src: string;
+          let src: string | undefined;
 
           if (srcPath) {
             src = path.join(process.cwd(), srcPath);
           } else {
             const component = Index[name];
             if (!component) return;
-            src = fileName
-              ? component.files.find((file: any) => {
+            const files = component.files || [];
+            const matchedFile =
+              fileName &&
+              files.find((file) => {
                   if (typeof file === 'string') {
                     return (
                       file.endsWith(`${fileName}.tsx`) ||
                       file.endsWith(`${fileName}.ts`)
                     );
                   }
-                  return file.path?.endsWith(`${fileName}.tsx`) ||
-                    file.path?.endsWith(`${fileName}.ts`);
-                })?.path || component.files[0]?.path
-              : component.files[0]?.path;
+                return (
+                  file.path?.endsWith(`${fileName}.tsx`) ||
+                  file.path?.endsWith(`${fileName}.ts`)
+                );
+              });
+
+            const firstPath =
+              typeof files[0] === 'string' ? files[0] : files[0]?.path;
+
+            src = (typeof matchedFile === 'string'
+              ? matchedFile
+              : matchedFile?.path) || firstPath;
           }
 
           // Read the source file.
+          if (!src) return;
+
           let filePath: string;
           if (path.isAbsolute(src) || src.startsWith(process.cwd())) {
             filePath = src;
@@ -123,8 +145,12 @@ export function rehypeComponent() {
         try {
           const component = Index[name];
           if (!component) return;
+          const firstFile = component.files?.[0];
+          if (!firstFile) return;
 
-          const src = component.files[0]?.path;
+          const src =
+            typeof firstFile === 'string' ? firstFile : firstFile.path || '';
+          if (!src) return;
 
           // Read the source file.
           let filePath: string;

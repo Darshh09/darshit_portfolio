@@ -32,11 +32,13 @@ function extractLines(
   return lines.slice(start - 1, end).join('\n');
 }
 
-export function remarkCodeImport(options: {
+type RemarkCodeImportOptions = {
   rootDir?: string;
   preserveTrailingNewline?: boolean;
   removeRedundantIndentations?: boolean;
-} = {}) {
+};
+
+export function remarkCodeImport(options: RemarkCodeImportOptions = {}) {
   // Default rootDir is the "src" directory in the current working directory
   const rootDir = options.rootDir || path.join(process.cwd(), 'src');
 
@@ -44,14 +46,23 @@ export function remarkCodeImport(options: {
     throw new Error(`"rootDir" has to be an absolute path`);
   }
 
-  return function transformer(tree: any, file: any) {
-    const codes: any[] = [];
+  return function transformer(tree: unknown, file: unknown) {
+    const codes: Array<[unknown, number, unknown]> = [];
 
-    visit(tree, 'code', (node: any, index: any, parent: any) => {
-      codes.push([node, index, parent]);
-    });
+    visit(
+      tree as never,
+      'code',
+      (node: unknown, index: number, parent: unknown) => {
+        codes.push([node, index, parent]);
+      }
+    );
 
-    for (const [node] of codes) {
+    for (const [rawNode] of codes) {
+      const node = rawNode as {
+        meta?: string;
+        value?: string;
+      };
+
       const fileMeta = (node.meta || '')
         // Allow escaping spaces
         .split(/(?<!\\) /g)
@@ -62,29 +73,29 @@ export function remarkCodeImport(options: {
       }
 
       const res =
-        /^file=(?<path>.+?)(?:(?:#(?:L(?<from>\d+)(?<dash>-)?)?)(?:L(?<to>\d+))?)?$/.exec(
-          fileMeta
-        );
+        /^file=(.+?)(?:(?:#(?:L(\d+)(-)?)?)(?:L(\d+))?)?$/.exec(fileMeta);
 
-      if (!res || !res.groups || !res.groups.path) {
+      if (!res || !res[1]) {
         throw new Error(`Unable to parse file path ${fileMeta}`);
       }
 
-      const filePath = res.groups.path;
+      const filePath = res[1];
 
-      const fromLine = res.groups.from
-        ? parseInt(res.groups.from, 10)
-        : undefined;
+      const fromLine = res[2] ? parseInt(res[2], 10) : undefined;
 
-      const hasDash = !!res.groups.dash || fromLine === undefined;
+      const hasDash = !!res[3] || fromLine === undefined;
 
-      const toLine = res.groups.to ? parseInt(res.groups.to, 10) : undefined;
+      const toLine = res[4] ? parseInt(res[4], 10) : undefined;
 
       const normalizedFilePath = filePath
         .replace(/^@/, rootDir)
         .replace(/\\ /g, ' ');
 
-      const fileAbsPath = path.resolve(file.dirname, normalizedFilePath);
+      const vfile = file as { dirname?: string; path?: string };
+      const fileDirname =
+        vfile.dirname || (vfile.path ? path.dirname(vfile.path) : rootDir);
+
+      const fileAbsPath = path.resolve(fileDirname, normalizedFilePath);
 
       const relativePathFromRootDir = path.relative(rootDir, fileAbsPath);
 

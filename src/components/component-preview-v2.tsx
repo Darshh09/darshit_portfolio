@@ -9,17 +9,21 @@ import { cn } from '@/lib/utils';
 import { CodeCollapsibleWrapper } from './code-collapsible-wrapper';
 import { Button } from './ui/button';
 import {
+  Tooltip,
   TooltipContent,
-  TooltipProvider,
-  TooltipRoot,
   TooltipTrigger,
 } from '@/components/base/ui/tooltip';
 import { Code as CodeInline } from './ui/typography';
 
+type RegistryEntry = {
+  component?: React.ComponentType<unknown>;
+};
+
 // Dynamic import for registry - will be available after build
-let Index: Record<string, any> = {};
+let Index: Record<string, RegistryEntry> = {};
 try {
-  Index = require('@/__registry__/index').Index || {};
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  Index = (require('@/__registry__/index') as { Index?: Record<string, RegistryEntry> }).Index || {};
 } catch {
   // Registry not built yet
 }
