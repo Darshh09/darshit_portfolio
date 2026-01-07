@@ -223,10 +223,10 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
                     ;
                     <br />
                     <span className="text-[#F97583]">import</span>{' '}
-                    <span className="text-white">{'{ Magic3DTabs }'}</span>{' '}
+                    <span className="text-white">{'{ Tabs }'}</span>{' '}
                     <span className="text-[#F97583]">from</span>{' '}
                     <span className="text-[#9ECBFF]">
-                      &quot;@/components/magic-3d-tabs&quot;
+                      &quot;@/registry/magic-genie-tabs/magic-genie-tabs&quot;
                     </span>
                     ;
                     <br />
@@ -256,7 +256,7 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
                     <br />
                     <br />
                     <span className="text-[#F97583]">export function</span>{' '}
-                    <span className="text-[#B392F0]">Magic3DTabsDemo</span>
+                    <span className="text-[#B392F0]">MagicGenieTabsDemo</span>
                     <span className="text-white">() {'{'}</span>
                     <br />
                     <span className="text-white">  return (</span>
@@ -269,7 +269,7 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
                     <span className="text-white">{'>'}</span>
                     <br />
                     <span className="text-white">      {'<'}</span>
-                    <span className="text-[#79B8FF]">Magic3DTabs</span>{' '}
+                    <span className="text-[#79B8FF]">Tabs</span>{' '}
                     <span className="text-[#B392F0]">className</span>
                     <span className="text-[#F97583]">=</span>
                     <span className="text-[#9ECBFF]">&quot;h-72 w-48&quot;</span>
@@ -278,7 +278,7 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
                     <span className="text-white">        {'{/* content */}'}</span>
                     <br />
                     <span className="text-white">      {'</'}</span>
-                    <span className="text-[#79B8FF]">Magic3DTabs</span>
+                    <span className="text-[#79B8FF]">Tabs</span>
                     <span className="text-white">{'>'}</span>
                     <br />
                     <span className="text-white">    {'</'}</span>

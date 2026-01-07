@@ -7,23 +7,23 @@
 import React from "react";
 
 export const Index: Record<string, any> = {
-  "magic-3d-tabs": {
-    name: "magic-3d-tabs",
-    description: "A beautiful 3D tabs component with perspective effects",
+  "magic-genie-tabs": {
+    name: "magic-genie-tabs",
+    description: "macOS-style genie animation with a sleek glass pill nav bar",
     type: "registry:component",
     files: [{
-      path: "src/registry/magic-3d-tabs/magic-3d-tabs.tsx",
+      path: "src/registry/magic-genie-tabs/magic-genie-tabs.tsx",
       type: "registry:component",
     }],
   },
-  "magic-3d-tabs-demo": {
-    name: "magic-3d-tabs-demo",
+  "magic-genie-tabs-demo": {
+    name: "magic-genie-tabs-demo",
     description: "",
     type: "registry:example",
     files: [{
-      path: "src/registry/examples/magic-3d-tabs-demo.tsx",
+      path: "src/registry/examples/magic-genie-tabs-demo.tsx",
       type: "registry:example",
     }],
-    component: React.lazy(() => import("@/registry/examples/magic-3d-tabs-demo.tsx")),
+    component: React.lazy(() => import("@/registry/examples/magic-genie-tabs-demo.tsx")),
   },
 }

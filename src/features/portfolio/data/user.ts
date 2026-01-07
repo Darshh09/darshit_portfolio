@@ -14,14 +14,14 @@ export const USER = {
     'Senior Frontend Engineer',
   ],
   address: 'India',
-  phoneNumber: 'Kzg0Nzc3ODg4MTQ4', // E.164 format, base64 encoded
+  phoneNumber: 'KzkxOTEzMTM3MTgwMA==', // E.164 format, base64 encoded: +919131371800
   email: 'ZGFyc2hpdHNodWtsYTE3NzdAZ21haWwuY29t', // base64 encoded: darshitshukla1777@gmail.com
   website: 'https://darshitdev.in',
   jobTitle: 'Design Engineer',
   jobs: [
     {
-      title: 'Design Engineer',
-      company: 'Freelance',
+      title: 'Senior Software Engineer',
+      company: 'Quantel AI',
       website: 'https://darshitdev.in',
     },
   ],

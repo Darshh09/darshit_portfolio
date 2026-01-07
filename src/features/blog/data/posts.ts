@@ -239,32 +239,29 @@ const Dialog: React.FC<{
 The Instance Hook Pattern is a simple design pattern in React that allows you to create reusable components with controlled behavior. I like to think of it as a packet of state which can be passed around anywhere to control the component linked to it. This actually ties in well with the Compound Components Pattern and the Render Props Pattern but that's a topic for another time :)`,
   },
   {
-    slug: 'magic-3d-tabs',
+    slug: 'magic-genie-tabs',
     metadata: {
-      title: 'Magic 3D Tabs',
+      title: 'Magic Genie Tabs',
       icon: 'tabs',
       new: false,
-      description: 'A beautiful 3D tabs component with perspective effects',
+      description: 'macOS-style genie animation with a sleek glass pill nav bar',
       category: 'components',
       createdAt: '2024-01-01',
       updatedAt: '2024-01-01',
     },
-    content: `# Magic 3D Tabs
+    content: `# Magic Genie Tabs
 
-A beautiful 3D tabs component with perspective effects.
+macOS-style genie animation with a sleek glass pill nav bar.
 
 ## Features
 
-- Mouse-interactive 3D rotation for content card
-- Dynamic tab scaling and lifting based on active tab proximity
-- Floating particles background effect
-- Animated radial gradient backgrounds for content
-- 3D content layers with translateZ for depth
-- Subtle 3D edge highlights for depth perception
-- Perspective container for immersive 3D experience
-- Smooth spring animations for all interactions
+- macOS-style genie animation that expands from the tab
+- Sleek glass pill navigation bar with backdrop blur
+- Smooth spring-based animations for tab switching
+- Scrollable content panel with custom scrollbar styling
 - Fully customizable with className props
-- Accessible with proper ARIA roles and keyboard navigation
+- Light and dark theme support
+- Responsive design that works on all screen sizes
 
 ## Installation
 
@@ -275,7 +272,7 @@ A beautiful 3D tabs component with perspective effects.
 <TabsContent value="cli">
 
 \`\`\`bash
-npx shadcn add @darx/magic-3d-tabs
+npx shadcn add @darx/magic-genie-tabs
 \`\`\`
 
 </TabsContent>
@@ -302,8 +299,8 @@ npm install motion clsx tailwind-merge
 <Step>Copy and paste the following code into your project</Step>
 
 <ComponentSource
-  name="magic-3d-tabs"
-  title="components/magic-3d-tabs.tsx"
+  name="magic-genie-tabs"
+  title="components/magic-genie-tabs.tsx"
   showLineNumbers
 />
 
@@ -318,53 +315,55 @@ npm install motion clsx tailwind-merge
 ## Usage
 
 \`\`\`tsx
-import { Magic3DTabs } from "@/components/magic-3d-tabs";
+import { Tabs } from "@/registry/magic-genie-tabs/magic-genie-tabs";
 
-<Magic3DTabs
+<Tabs
   tabs={[
     {
-      label: 'Tab 1',
-      title: 'Title',
-      content: <div>Content</div>,
-      gradient: 'bg-gradient-to-br from-purple-700 to-violet-900',
-      previewImage: 'optional-image-url'
+      title: 'Overview',
+      value: 'overview',
+      content: <div>Content goes here</div>,
+      gradient: 'bg-gradient-to-br from-purple-700/50 to-violet-900/50'
+    },
+    {
+      title: 'Settings',
+      value: 'settings',
+      content: <div>More content</div>
     }
   ]}
   containerClassName="mb-8"
   tabClassName="custom-tab"
   activeTabClassName="custom-active"
   contentClassName="custom-content"
-  defaultTab={0}
 />
 \`\`\`
 
 ## API Reference
 
-### Magic3DTabs
+### MagicGenieTabs
 
-The root component that provides the 3D tabs functionality.
+The root component that provides the genie-style tab navigation + content panel.
 
 | Prop                | Type                    | Default | Description                                                          |
 | ------------------- | ----------------------- | ------- | -------------------------------------------------------------------- |
-| \`tabs\`            | \`MagicTabItem[]\`      |         | Array of tab objects. See MagicTabItem interface below for details.  |
-| \`containerClassName\` | \`string\`            |         | Custom classes for the outer section wrapper.                        |
-| \`tabClassName\`    | \`string\`              |         | Shared classes for each tab button.                                  |
-| \`activeTabClassName\` | \`string\`           |         | Classes applied to the animated pill highlight.                      |
-| \`contentClassName\` | \`string\`              |         | Classes for the content surface.                                     |
-| \`defaultTab\`      | \`number\`              | \`0\`   | The index of the tab to show initially.                              |
+| \`tabs\`            | \`MagicTabItem[]\`      | –       | Array of tab objects. See MagicTabItem below.                        |
+| \`containerClassName\` | \`string\`            | –       | Extra classes for the outer wrapper (div around tabs + panel).        |
+| \`tabClassName\`    | \`string\`              | –       | Shared classes applied to each tab button.                           |
+| \`activeTabClassName\` | \`string\`           | –       | Extra classes merged into the active pill highlight.                 |
+| \`contentClassName\` | \`string\`              | –       | Classes applied to the content panel container.                       |
+
+The component expects tabs to be stable; it internally manages activeIndex and animates the shared pill between items.
 
 ### MagicTabItem
 
-Interface for individual tab items.
+The shape of each tab object passed in the tabs array.
 
 | Prop            | Type                | Default | Description                                                          |
 | --------------- | ------------------- | ------- | -------------------------------------------------------------------- |
-| \`label\`       | \`string\`          |         | The label text displayed on the tab button. (required)               |
-| \`title\`      | \`string\`          |         | Optional title displayed in the content area when this tab is active. |
-| \`description\` | \`string\`          |         | Optional description shown in hover previews and tooltips.            |
-| \`content\`     | \`React.ReactNode\` |         | The content to display when this tab is active.                      |
-| \`gradient\`   | \`string\`          |         | Optional Tailwind CSS gradient classes for the content background.   |
-| \`previewImage\` | \`string\`          |         | Optional image URL shown in hover previews on tab buttons.            |
+| \`title\`       | \`string\`          | –       | Label text shown on the tab pill and used to identify the tab.       |
+| \`value\`       | \`string\`          | –       | Unique value for the tab (used for keys and active tab comparison).  |
+| \`content\`     | \`React.ReactNode\` | –       | React node rendered inside the genie content panel when tab is active. |
+| \`gradient\`    | \`string\`          | –       | Optional CSS gradient string used as a subtle animated wash behind content. |
 `,
   },
 ];

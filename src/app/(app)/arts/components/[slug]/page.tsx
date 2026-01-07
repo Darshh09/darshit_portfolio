@@ -30,7 +30,8 @@ import type { Post } from '@/features/blog/types/post';
 import { USER } from '@/features/portfolio/data/user';
 import { cn } from '@/lib/utils';
 
-import { Magic3DTabsDemo } from './magic-3d-tabs-demo';
+import MagicGenieTabsDemo from './magic-genie-tabs-demo';
+import { DemoPreview } from './demo-preview';
 
 export const dynamicParams = false;
 
@@ -223,10 +224,10 @@ export default async function Page({
 
         <InlineTOC items={toc} />
 
-        {slug === 'magic-3d-tabs' && (
-          <div className="my-8 not-prose">
-            <Magic3DTabsDemo />
-          </div>
+        {slug === 'magic-genie-tabs' && (
+          <DemoPreview>
+            <MagicGenieTabsDemo />
+          </DemoPreview>
         )}
 
         <div>

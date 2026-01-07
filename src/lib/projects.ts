@@ -9,10 +9,10 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
-    title: 'Magic 3D Tabs',
-    blurb: 'A beautiful 3D tabs component with perspective effects and smooth animations.',
-    cover: '/project-covers/magic-3d-tabs.jpg',
-    href: '/arts/components/magic-3d-tabs',
+    title: 'Magic Genie Tabs',
+    blurb: 'macOS-style genie animation with a sleek glass pill nav bar.',
+    cover: '/project-covers/magic-genie-tabs.jpg',
+    href: '/arts/components/magic-genie-tabs',
     tags: ['React', 'Framer Motion', 'TypeScript', 'Next.js'],
   },
   {

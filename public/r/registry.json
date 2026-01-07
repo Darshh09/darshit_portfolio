@@ -4,22 +4,22 @@
   "homepage": "https://darshitdev.in/arts",
   "items": [
     {
-      "name": "magic-3d-tabs",
+      "name": "magic-genie-tabs",
       "type": "registry:component",
-      "title": "Magic 3D Tabs",
+      "title": "Magic Genie Tabs",
       "author": "darshitdev <darshit@darshitdev.in>",
-      "description": "A beautiful 3D tabs component with perspective effects",
+      "description": "macOS-style genie animation with a sleek glass pill nav bar",
       "dependencies": [
         "motion"
       ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "src/registry/magic-3d-tabs/magic-3d-tabs.tsx",
+          "path": "src/registry/magic-genie-tabs/magic-genie-tabs.tsx",
           "type": "registry:component"
         }
       ],
-      "docs": "https://darshitdev.in/arts/components/magic-3d-tabs"
+      "docs": "https://darshitdev.in/arts/components/magic-genie-tabs"
     }
   ]
 }
