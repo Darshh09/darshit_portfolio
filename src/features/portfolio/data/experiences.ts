@@ -1,5 +1,6 @@
 import type { Experience } from "../types/experiences";
 
+
 export const EXPERIENCES: Experience[] = [
   {
     id: "quantel-ai",
@@ -48,29 +49,9 @@ export const EXPERIENCES: Experience[] = [
     isCurrentEmployer: true,
   },
   {
-    id: "brotherhoodbytes",
-    companyName: "BrotherhoodBytes",
-    companyLogo: "/logos/brotherhoodbytes.svg",
-    positions: [
-      {
-        id: "brotherhoodbytes-cofounder",
-        title: "Co-founder",
-        employmentPeriod: {
-          start: "2023",
-        },
-        employmentType: "Full-time",
-        icon: "idea",
-        description: `- Led delivery across 10+ client projects
-- Built reusable UI kit to speed up MVPs`,
-        skills: ["React", "Tailwind", "Storybook"],
-      },
-    ],
-    isCurrentEmployer: true,
-  },
-  {
     id: "freelance",
     companyName: "Freelance",
-    companyLogo: "/logos/ds-mark.svg",
+    companyLogo: "../../../public/dsmainlogo.png",
     positions: [
       {
         id: "freelance-fullstack",
