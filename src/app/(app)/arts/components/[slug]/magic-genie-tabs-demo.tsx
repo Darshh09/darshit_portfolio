@@ -9,7 +9,7 @@ export default function MagicGenieTabsDemo() {
       title: "Overview",
       value: "overview",
       // You can use either a Tailwind class or a CSS gradient string
-      gradient: 'bg-red-500/20', // Tailwind class with opacity
+      gradient: 'radial-gradient(ellipse at top, rgba(29, 68, 68, 0.3) 0%, rgba(24, 38, 38, 0.2) 50%, transparent 100%)',
       // Or use a CSS gradient: gradient: 'radial-gradient(ellipse at top, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 38, 0.2) 50%, transparent 100%)',
       content: (
         <div>
