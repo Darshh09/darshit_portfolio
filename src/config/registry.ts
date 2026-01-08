@@ -1,7 +1,7 @@
 export const registryConfig = {
   /**
    * Registry namespace identifier for shadcn CLI
-   * @example "@darx" - Users can install components with: `npx shadcn add @darx/magic-genie-tabs`
+   * @example "https://darshitdev.in/r" - Users can install components with: `npx shadcn add https://darshitdev.in/r/magic-genie-tabs`
    * @see https://ui.shadcn.com/docs/registry/namespace#overview
    */
   namespace: "https://darshitdev.in/r",

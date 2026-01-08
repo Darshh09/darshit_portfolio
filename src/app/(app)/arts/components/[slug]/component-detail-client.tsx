@@ -45,7 +45,7 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
     { id: 'props', label: 'Props' },
-    component.tabItemProps && { id: 'tab-item-interface', label: 'MagicTabItem Interface' },
+    component.tabItemProps && { id: 'tab-item-interface', label: 'Magic Genie Tabs Interface' },
     component.references && { id: 'references', label: 'References' },
   ].filter(Boolean) as Array<{ id: string; label: string }>;
 
@@ -579,7 +579,7 @@ export default function ComponentDetailClient({ component }: ComponentDetailClie
             <>
               <h2 className="flex flex-row items-center gap-2" id="tab-item-interface">
                 <a href="#tab-item-interface" className="peer not-prose text-white">
-                  MagicTabItem Interface
+                  Magic Genie Tabs Interface
                 </a>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

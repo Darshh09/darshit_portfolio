@@ -272,7 +272,7 @@ macOS-style genie animation with a sleek glass pill nav bar.
 <TabsContent value="cli">
 
 \`\`\`bash
-npx shadcn add @darx/magic-genie-tabs
+npx shadcn add https://darshitdev.in/r/magic-genie-tabs
 \`\`\`
 
 </TabsContent>
