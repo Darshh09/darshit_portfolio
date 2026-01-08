@@ -47,7 +47,7 @@ export function TeckStack() {
                           width={32}
                           height={32}
                           className={cn(
-                            tech.theme && "opacity-100 [html.dark_&]:opacity-70"
+                            tech.theme && "opacity-100 "
                           )}
                         />
                       ) : null}

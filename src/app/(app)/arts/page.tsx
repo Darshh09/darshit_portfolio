@@ -45,15 +45,15 @@ export default function Page() {
       <div className="p-4">
         <p className="font-mono text-sm text-balance text-muted-foreground">
           {metadata.description} <span className="max-md:block" />
-          <a
+         {/*  <a
             className="whitespace-nowrap underline-offset-4 hover:underline"
             href={`https://ui.shadcn.com/docs/directory?q=${registryConfig.namespace}&utm_source=darshitdev.in&utm_medium=referral&utm_campaign=components`}
             target="_blank"
             rel="noopener noreferrer"
           >
             Trusted registry
-          </a>{" "}
-          for shadcn/ui.
+          </a>{" "} */}
+          {/* for shadcn/ui. */}
         </p>
       </div>
 

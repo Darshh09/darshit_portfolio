@@ -4,7 +4,7 @@ export const registryConfig = {
    * @example "@darx" - Users can install components with: `npx shadcn add @darx/magic-genie-tabs`
    * @see https://ui.shadcn.com/docs/registry/namespace#overview
    */
-  namespace: "@darx",
+  namespace: "https://darshitdev.in/r",
   /**
    * URL pattern for resolving namespaced components
    * The {name} placeholder will be replaced with the component name

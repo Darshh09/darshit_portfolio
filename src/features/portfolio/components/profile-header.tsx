@@ -2,6 +2,7 @@ import { USER } from "@/features/portfolio/data/user";
 import { FlipSentences } from "@/registry/flip-sentences";
 
 import { PronounceMyName } from "./pronounce-my-name";
+import { TypewriterText } from "./typewriter-text";
 import { VerifiedIcon } from "./verified-icon";
 
 export function ProfileHeader() {
@@ -22,10 +23,14 @@ export function ProfileHeader() {
       <div className="flex flex-1 flex-col">
         <div className="flex grow items-end pb-1 pl-4">
           <div className="line-clamp-1 font-mono text-xs text-zinc-300 select-none max-sm:hidden dark:text-zinc-800">
-            {"text-3xl "}
-            <span className="inline dark:hidden">text-zinc-950</span>
-            <span className="hidden dark:inline">text-zinc-50</span>
-            {" font-medium"}
+            <TypewriterText
+              speed={50}
+              parts={[
+                { text: 'text-3xl ' },
+                { text: 'text-zinc-950', wrapInSpan: true },
+                { text: ' font-medium' },
+              ]}
+            />
           </div>
         </div>
 

@@ -26,14 +26,6 @@ export const TECH_STACK: TechStack[] = [
     iconCollection: "simple-icons",
   },
   {
-    key: "php",
-    title: "PHP",
-    href: "https://www.php.net/",
-    categories: ["Language"],
-    iconName: "php",
-    iconCollection: "simple-icons",
-  },
-  {
     key: "java",
     title: "Java",
     href: "https://www.java.com/",
@@ -47,14 +39,6 @@ export const TECH_STACK: TechStack[] = [
     href: "https://nodejs.org/",
     categories: ["Runtime Environment"],
     iconName: "nodedotjs",
-    iconCollection: "simple-icons",
-  },
-  {
-    key: "bun",
-    title: "Bun",
-    href: "https://bun.sh/",
-    categories: ["Runtime Environment"],
-    iconName: "bun",
     iconCollection: "simple-icons",
   },
   {
@@ -165,22 +149,6 @@ export const TECH_STACK: TechStack[] = [
     href: "https://reactnavigation.org/",
     categories: ["Library", "Navigation"],
     iconName: "react",
-    iconCollection: "simple-icons",
-  },
-  {
-    key: "loopback",
-    title: "LoopBack",
-    href: "https://loopback.io/",
-    categories: ["Framework"],
-    iconName: "loopback",
-    iconCollection: "devicon",
-  },
-  {
-    key: "laravel",
-    title: "Laravel",
-    href: "https://laravel.com/",
-    categories: ["Framework"],
-    iconName: "laravel",
     iconCollection: "simple-icons",
   },
   {

@@ -215,7 +215,7 @@ export default function FirstAnimation() {
   };
 
   return (
-    <div className="group isolate max-w-md   flex flex-col rounded-2xl bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025]">
+    <div className="w-full mx-auto   flex flex-col rounded-2xl bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025]">
       {/* Description block */}
       <div className="relative z-20 flex-none px-6 order-last pb-6 ">
 
